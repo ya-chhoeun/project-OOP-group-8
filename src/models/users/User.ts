@@ -8,8 +8,10 @@ export abstract class User {
     private id: number;
     private name: string;
     private email: string;
-    private role: Role;  
+    private role: Role;
     private password: string;
+    private isLoggedIn: boolean = false;
+    private static existingUsers: User[] = [];
 
     constructor(id: number, name: string, email: string, role: Role, password: string) {
         this.id = id;
@@ -19,16 +21,46 @@ export abstract class User {
         this.password = password;
     }
 
+    public getEmail(): string {
+        return this.email;
+    }
+
+    protected setLoggedIn(value: boolean): void {
+        this.isLoggedIn = value;
+    }
+    
     public login(email: string, password: string): boolean {
-        return this.email === email && this.password === password;
+        if (this.email === email && this.password === password) {
+            console.log(`${this.name} logged in successfully.`);
+            return true;
+        } else {
+            console.log(`Login failed for ${this.name}.`);
+            return false;
+        }
     }
 
     public logout(): void {
         console.log(`${this.name} logged out.`);
+        if (this.isLoggedIn) {
+            this.isLoggedIn = false;
+            console.log(`${this.name} logged out.`);
+        } else {
+            console.log(`${this.name} is not logged in.`);
+        }
     }
 
     public register(name: string, email: string, password: string, role: Role): User {
-        return new RegisteredUser(Date.now(), name, email, role, password);
+       const userExists = User.existingUsers.some(user => user.getEmail() === email);
+
+        if (userExists) {
+            throw new Error(`${email} is already registered. Please log in.`);
+        }
+
+        const newUser = new RegisteredUser(Date.now(), name, email, role, password);
+        User.existingUsers.push(newUser); 
+        newUser.setLoggedIn(true); 
+        console.log(`${name} has been registered and logged in.`);
+        return newUser;
     }
 
     public displayInfo(): void {
@@ -41,3 +73,7 @@ class RegisteredUser extends User {
         super(id, name, email, role, password);
     }
 }
+
+
+
+
