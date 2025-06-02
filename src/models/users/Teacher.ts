@@ -1,9 +1,13 @@
-export abstract class Teacher {
-    private teacherId: string;
-    private specialization: string;
+class teacher {
+  constructor(
+    public id: string,
+    public name: string,
+    public email: string,
+    public subject: string,
+    public yearsOfExperience: number
+  ) {}
 
-    constructor (teacherId: string, specialization: string) {
-        this.teacherId = teacherId;
-        this.specialization = specialization;
-    }
+  getDetails(): string {
+    return `${this.name} teaches ${this.subject} and has ${this.yearsOfExperience} years of experience.`;
+  }
 }
