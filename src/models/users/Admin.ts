@@ -1,23 +1,40 @@
-import { User } from './User';
+import { User } from "./User"
 
-enum Role {
-    STUDENT = "student",
-    TEACHER = "teacher",
-    ADMIN = "admin"
-}
-class Admin extends User {
-  private adminId: number;
+export class Admin extends User {
+  private adminLevel: string
+  private permissions: string[] = []
 
-  constructor(id: number, name: string, email: string, role: Role, password: string) {
-    super(id, name, email, role, password);
-    this.adminId = id;
+  constructor(
+    id: string,
+    name: string,
+    email: string,
+    password: string,
+    phone: string,
+    address: string,
+    adminLevel: string,
+  ) {
+    super(id, name, email, password, phone, address)
+    this.adminLevel = adminLevel
   }
 
-//   public assignTeacherToSubject(teacher: Teacher, subject: Subject): void {
-//     console.log(${teacher.getName()} assigned to teach ${subject.getName()});
-//   }
+  public getRole(): string {
+    return "Admin"
+  }
 
-//   public enrollStudentInSubject(student: Student, subject: Subject): void {
-//     console.log(${student.getName()} enrolled in ${subject.getName()});
-//   }
+  public getAdminLevel(): string {
+    return this.adminLevel
+  }
+
+  public addPermission(permission: string): void {
+      this.permissions.push(permission)
+    
+  }
+
+  public getPermissions(): string[] {
+    return this.permissions
+  }
+
+  public hasPermission(permission: string): void {
+    this.permissions.push(permission)
+  }
 }
