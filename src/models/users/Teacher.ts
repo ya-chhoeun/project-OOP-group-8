@@ -1,32 +1,59 @@
-enum Role {
-    STUDENT = "student",
-    TEACHER = "teacher",
-    ADMIN = "admin"
-}
-
-import { User } from "./User"
-import { Subject } from "../academics/Subject"
-import { Assignment } from "../academics/Assignment"
+import { User, Role } from "./User"
+import type { Subject } from "../academics/Subject"
+import type { Assignment } from "../academics/Assignment"
 
 export class Teacher extends User {
-  private teacherId: number
+  private teacherId: string
   private specialization: string
   private subjects: Subject[] = []
   private assignments: Assignment[] = []
 
   constructor(
-    id: number,
+    id: string,
     name: string,
     email: string,
-    role: Role,
     password: string,
-    teacherId: number,
+    phone: string,
+    address: string,
+    teacherId: string,
     specialization: string,
   ) {
-    super(id, name, email, role, password)
+    super(id, name, email, password, phone, address, Role.TEACHER)
     this.teacherId = teacherId
     this.specialization = specialization
   }
 
-  // ...rest of the code remains unchanged...
+  public getSpecificRole(): string {
+    return "Teacher"
+  }
+
+  public getTeacherId(): string {
+    return this.teacherId
+  }
+
+  public getSpecialization(): string {
+    return this.specialization
+  }
+
+  public addSubject(subject: Subject): void {
+    if (!this.subjects.find((s) => s.getSubjectId() === subject.getSubjectId())) {
+      this.subjects.push(subject)
+    }
+  }
+
+  public getSubjects(): Subject[] {
+    return this.subjects
+  }
+
+  public createAssignment(assignment: Assignment): void {
+    this.assignments.push(assignment)
+  }
+
+  public getAssignments(): Assignment[] {
+    return this.assignments
+  }
+
+  public setSpecialization(specialization: string): void {
+    this.specialization = specialization
+  }
 }
