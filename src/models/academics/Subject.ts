@@ -18,4 +18,6 @@ export class Subject {
     this.credits = credits
     this.description = description
   }
+  
 }
+
