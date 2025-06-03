@@ -36,7 +36,11 @@ export abstract class User {
     public getName(): string {
         return this.name;
     }
+<<<<<<< HEAD
      public login(email: string, password: string): boolean {
+=======
+    public login(email: string, password: string): boolean {
+>>>>>>> 5746eb276e5205aab6ce276292c86b656826f507
         if (this.email === email && this.password === password) {
             console.log(`${this.name} logged in successfully.`);
             return true;
@@ -47,6 +51,10 @@ export abstract class User {
     }
 
     public logout(): void {
+<<<<<<< HEAD
+=======
+        console.log(`${this.name} logged out.`);
+>>>>>>> 5746eb276e5205aab6ce276292c86b656826f507
         if (this.isLoggedIn) {
             this.isLoggedIn = false;
             console.log(`${this.name} logged out.`);
@@ -69,15 +77,25 @@ export abstract class User {
         return newUser;
     }
 
+<<<<<<< HEAD
     // ...existing code...
     public displayInfo(): void {
         console.log(`ID: ${this.id}, Name: ${this.name}, Role: ${this.role}`);
     }
 // ...existing code...
+=======
+    public displayInfo(): void {
+        console.log(`ID: ${this.id}, Name: ${this.name}, Role: ${this.role}`);
+    }
+>>>>>>> 5746eb276e5205aab6ce276292c86b656826f507
 }
 
 class RegisteredUser extends User {
     constructor(id: number, name: string, email: string, role: Role, password: string) {
         super(id, name, email, role, password);
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 5746eb276e5205aab6ce276292c86b656826f507
