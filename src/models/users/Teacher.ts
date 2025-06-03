@@ -1,7 +1,12 @@
+enum Role {
+    STUDENT = "student",
+    TEACHER = "teacher",
+    ADMIN = "admin"
+}
+
 import { User } from "./User"
 import { Subject } from "../academics/Subject"
 import { Assignment } from "../academics/Assignment"
-import { Role } from "./User"
 
 export class Teacher extends User {
   private teacherId: number
