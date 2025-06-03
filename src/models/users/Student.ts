@@ -4,8 +4,9 @@ import { Timetable } from "../academics/Timetable";
 import { Assignment } from "../academics/Assignment";
 import { Grade } from "../academics/Grade";
 import { Exam } from "../academics/Exam";
-import { Fee} from "../operation/Fee";
-import { Result } from "../operation/Result";
+import { Fee} from "../operations/Fee";
+import { Result } from "../operations/Result";
+//     
 
 enum Role {
   STUDENT = "student",

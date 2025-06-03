@@ -1,4 +1,4 @@
-class Grade {
+export class Grade {
     private id: number;
     private score: number;
     private comments: string;
