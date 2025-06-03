@@ -114,14 +114,13 @@ export abstract class User {
     return newUser
   }
 
-  public displayInfo(): void {
-    console.log(`ID: ${this.id}, Name: ${this.name}, Role: ${this.role}, Email: ${this.email}`)
-  }
-
-  public abstract getSpecificRole(): string
+    public displayInfo(): void {
+        console.log(`ID: ${this.id}, Name: ${this.name}, Role: ${this.role}`);
+    }
 }
 
-// Import classes that extend User
-import { Student } from "./Student"
-import { Teacher } from "./Teacher"
-import { Admin } from "./Admin"
+class RegisteredUser extends User {
+    constructor(id: number, name: string, email: string, role: Role, password: string) {
+        super(id, name, email, role, password);
+    }
+}
