@@ -1,6 +1,6 @@
 export class Subject {
   private subject_id: string
-  private subject_name: string
+  public subject_name: string
   private subject_code: string
   private credits: number
   private description: string

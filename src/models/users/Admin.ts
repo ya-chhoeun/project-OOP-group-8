@@ -1,7 +1,7 @@
 import { User } from "./User";
 import { Teacher } from "./Teacher";
 import { Student } from "./Student";
-import { Subject } from "./Subject";
+import { Subject } from "../academics/Subject";
 
 enum Role {
   STUDENT = "student",
@@ -27,7 +27,7 @@ export class Admin extends User {
 
   public assignTeacherToSubject(teacher: Teacher, subject: Subject): void {
     this.teacherAssignments.set(teacher.getId(), subject);
-    console.log(`Assigned teacher ${teacher.getName()} to subject ${subject.name}`);
+    console.log(`Assigned teacher ${teacher.getName()} to subject ${subject.subject_name}`);
   }
 
   public enrollStudentInSubject(student: Student, subject: Subject): void {
@@ -35,7 +35,7 @@ export class Admin extends User {
       this.studentEnrollments.set(student.getId(), new Set());
     }
     this.studentEnrollments.get(student.getId())!.add(subject);
-    console.log(`Enrolled student ${student.getName()} in subject ${subject.name}`);
+    console.log(`Enrolled student ${student.getName()} in subject ${subject.subject_name}`);
   }
 
   public getAdminId(): number {
