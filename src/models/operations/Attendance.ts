@@ -1,4 +1,4 @@
-class Attendance {
+ export class Attendance {
     private id: string;
     private date: Date;
     private studentName: string;

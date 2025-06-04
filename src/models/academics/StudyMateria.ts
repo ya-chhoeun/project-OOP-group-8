@@ -1,4 +1,4 @@
-class StudyMateria {
+ export class StudyMateria {
     private examDate: Date;
     private result: number;
     private room: string;

@@ -1,4 +1,4 @@
-class Parents {
+ export class Parents {
     private id: number;
     private name: string;
     private email: string;

@@ -1,9 +1,10 @@
+
 export class Subject {
-  private subject_id: string
+  public subject_id: string
   public subject_name: string
-  private subject_code: string
-  private credits: number
-  private description: string
+  public subject_code: string
+  public credits: number
+  public description: string
 
   constructor(
     subject_id: string,

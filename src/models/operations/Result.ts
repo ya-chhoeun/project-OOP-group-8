@@ -1,4 +1,4 @@
-class Result {
+export class Result {
     private id: number;
     private studentId: number;
     private examId: number;

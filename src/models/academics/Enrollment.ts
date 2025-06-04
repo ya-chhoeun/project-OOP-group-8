@@ -1,4 +1,4 @@
-class Enrollment {
+ export class Enrollment {
     private id: number;
     
     constructor(id: number) {

@@ -1,4 +1,4 @@
-class Feedback {
+ export class Feedback {
     private rating: number;
     private comment: string;
     private date: Date;

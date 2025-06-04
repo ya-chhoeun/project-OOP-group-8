@@ -1,4 +1,4 @@
-class Fee {
+ export class Fee {
     private id: number;
     private amount: number;
     private dueDate: Date;
