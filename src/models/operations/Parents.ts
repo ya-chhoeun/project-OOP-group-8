@@ -1,4 +1,4 @@
-import type { Student } from "../users/Student"
+import { Student } from "../users/Student"
 
 export class Parents {
   private id: string

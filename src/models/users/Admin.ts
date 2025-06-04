@@ -1,5 +1,10 @@
-import { User, Role } from "./User"
+import { User } from "./User"
 
+enum Role {
+    STUDENT = "student",
+    TEACHER = "teacher",
+    ADMIN = "admin"
+}
 export class Admin extends User {
   private adminLevel: string
   private permissions: string[] = []
@@ -13,7 +18,7 @@ export class Admin extends User {
     address: string,
     adminLevel: string,
   ) {
-    super(id, name, email, password, phone, address, Role.ADMIN)
+    super(id, name, email, password, phone, address);
     this.adminLevel = adminLevel
   }
 

@@ -1,59 +1,54 @@
-import { User, Role } from "./User"
-import type { Subject } from "../academics/Subject"
-import type { Assignment } from "../academics/Assignment"
+// import { User } from "./User";
+import { Subject } from "../academics/Subject";
+import { StudyMaterial } from "../academics/StudyMateria";
+import { Assignment } from "../academics/Assignment";
 
+
+import { User } from "./User";
+enum Role {
+  STUDENT = "student",
+  TEACHER = "teacher",
+  ADMIN = "admin"
+}
 export class Teacher extends User {
-  private teacherId: string
-  private specialization: string
-  private subjects: Subject[] = []
-  private assignments: Assignment[] = []
+  private subjects: Subject[] = [];
 
   constructor(
-    id: string,
+    id: number,
     name: string,
     email: string,
+    role: Role,
     password: string,
-    phone: string,
-    address: string,
-    teacherId: string,
-    specialization: string,
+    public teacherId: number,
+    public specialization: string
   ) {
-    super(id, name, email, password, phone, address, Role.TEACHER)
-    this.teacherId = teacherId
-    this.specialization = specialization
+    super(id, name, email, role, password);
   }
 
-  public getSpecificRole(): string {
-    return "Teacher"
+  assignSubject(subject: Subject): void {
+    this.subjects.push(subject);
   }
 
-  public getTeacherId(): string {
-    return this.teacherId
-  }
-
-  public getSpecialization(): string {
-    return this.specialization
-  }
-
-  public addSubject(subject: Subject): void {
-    if (!this.subjects.find((s) => s.getSubjectId() === subject.getSubjectId())) {
-      this.subjects.push(subject)
+  uploadMaterial(subject: Subject, material: StudyMaterial): void {
+    if (!this.subjects.includes(subject)) {
+      throw new Error("Not authorized to upload for this subject.");
     }
+    console.log(`Material uploaded for ${subject}: ${material}`);
   }
 
-  public getSubjects(): Subject[] {
-    return this.subjects
+  createAssignment(subject: Subject, assignment: Assignment): void {
+    if (!this.subjects.includes(subject)) {
+      throw new Error("Not authorized to create assignment for this subject.");
+    }
+    console.log(`Assignment created: ${assignment}`);
   }
 
-  public createAssignment(assignment: Assignment): void {
-    this.assignments.push(assignment)
-  }
-
-  public getAssignments(): Assignment[] {
-    return this.assignments
-  }
-
-  public setSpecialization(specialization: string): void {
-    this.specialization = specialization
-  }
+//   viewStudentGrade(student: Student, assignment: Assignment): void {
+//     const grade = assignment.grades.get(student);
+//     if (grade !== undefined) {
+//       console.log(`${student.name} scored ${grade}`);
+//     } else {
+//       console.log(`${student.name} has no grade yet.`);
+//     }
+//   }
 }

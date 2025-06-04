@@ -12,5 +12,13 @@ class Student extends User {
     this.studentId = id;
   }
 
+  public getStudentId(): number {
+    return this.studentId;
+  }
+  public setStudentId(studentId: number): void {
+    this.studentId = studentId;
+  }
+  
+
   
 }
