@@ -23,3 +23,4 @@ export class Timetable {
         return this.room;
     }
 }
+

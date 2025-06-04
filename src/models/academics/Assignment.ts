@@ -28,6 +28,8 @@ export class Assignment {
 
   public getId(): number {
     return this.id
+  public getAssignmentId(): string {
+    return this.assignment_id
   }
 
   public getTitle(): string {
@@ -42,9 +44,33 @@ export class Assignment {
     return this.dueDate
   }
 
-  public getSubject(): Subject {
-    return this.subject
-  }
+//   public getMaxMarks(): number {
+//     return this.max_marks
+//   }
 
+//   public getSubject(): Subject {
+//     return this.subject
+//   }
   
+// }
+//   public getTeacher(): Teacher {
+//     return this.teacher
+//   }
+
+//   public getCreatedDate(): Date {
+//     return this.created_date
+//   }
+
+//   public isPublished(): boolean {
+//     return this.is_published
+//   }
+
+//   public publish(): void {
+//     this.is_published = true
+//   }
+
+//   public unpublish(): void {
+//     this.is_published = false
+//   }
 }
+

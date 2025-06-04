@@ -1,4 +1,4 @@
-import { User } from "./User"
+import { User, Role } from "./User"
 
 export class Admin extends User {
   private adminLevel: string
@@ -13,11 +13,11 @@ export class Admin extends User {
     address: string,
     adminLevel: string,
   ) {
-    super(id, name, email, password, phone, address)
+    super(id, name, email, password, phone, address, Role.ADMIN)
     this.adminLevel = adminLevel
   }
 
-  public getRole(): string {
+  public getSpecificRole(): string {
     return "Admin"
   }
 
@@ -26,15 +26,20 @@ export class Admin extends User {
   }
 
   public addPermission(permission: string): void {
+    if (!this.permissions.includes(permission)) {
       this.permissions.push(permission)
-    
+    }
   }
 
   public getPermissions(): string[] {
     return this.permissions
   }
 
-  public hasPermission(permission: string): void {
-    this.permissions.push(permission)
+  public hasPermission(permission: string): boolean {
+    return this.permissions.includes(permission)
+  }
+
+  public removePermission(permission: string): void {
+    this.permissions = this.permissions.filter((p) => p !== permission)
   }
 }

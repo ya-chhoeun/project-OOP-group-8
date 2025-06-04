@@ -2,8 +2,9 @@ export class Result {
     private id: number;
     private studentId: number;
     private examId: number;
-    private grade: number; // fixed type
+    private grade: number;
     private date: Date;
+
 
     constructor(id: number, studentId: number, examId: number, grade: number, date: Date) {
         this.id = id;
