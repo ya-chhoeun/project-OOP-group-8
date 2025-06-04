@@ -5,7 +5,7 @@ export class Admin extends User {
   private permissions: string[] = []
 
   constructor(
-    id: string,
+    id: number,
     name: string,
     email: string,
     password: string,
@@ -13,7 +13,7 @@ export class Admin extends User {
     address: string,
     adminLevel: string,
   ) {
-    super(id, name, email, password, phone, address, Role.ADMIN)
+    super(id, name, email, password, Role.ADMIN)
     this.adminLevel = adminLevel
   }
 
