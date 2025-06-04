@@ -1,4 +1,4 @@
-// Define enum Role
+
 
 enum Role {
   STUDENT = "student",
@@ -7,7 +7,7 @@ enum Role {
 }
 
 
-// Always import from the same relative path
+
 import { Subject } from "../academics/Subject";
 import { Assignment } from "../academics/Assignment";
 import { User } from "./User";
