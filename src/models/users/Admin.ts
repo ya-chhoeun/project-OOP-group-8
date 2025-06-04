@@ -79,5 +79,6 @@ class Admin extends User {
     timeZone: "Asia/Bangkok",
   });
 
+  console.log(`Current Date: ${currentDate}`);
   
 })();
