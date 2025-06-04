@@ -28,9 +28,11 @@ export class Assignment {
 
   public getId(): number {
     return this.id
-  public getAssignmentId(): string {
-    return this.assignment_id
+    
   }
+  // public getAssignmentId(): string {
+  //   return this.assignment_id
+  // }
 
   public getTitle(): string {
     return this.title

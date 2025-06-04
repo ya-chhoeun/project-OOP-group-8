@@ -43,7 +43,8 @@ export class Teacher extends User {
   }
 
   public addSubject(subject: Subject): void {
-    if (!this.subjects.find((s) => s.getSubjectId() === subject.getSubjectId())) {
+    // Assuming Subject has a public getId() method
+    if (!this.subjects.find((s) => s.getId() === subject.getId())) {
       this.subjects.push(subject)
     }
   }
