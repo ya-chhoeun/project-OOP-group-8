@@ -23,7 +23,7 @@ export class Teacher extends User {
     public teacherId: number,
     public specialization: string
   ) {
-    super(id, name, email, password, phone); 
+    super(id, name, email, Role.TEACHER, password);
   }
 
   public assignSubject(subject: Subject): void {
@@ -34,7 +34,7 @@ export class Teacher extends User {
     if (!this.subjects.includes(subject)) {
       throw new Error("Not authorized to upload for this subject.");
     }
-    console.log(`Material uploaded for ${subject.getSubjectName}: ${material.getTitle()}`);
+    console.log(`Material uploaded for ${subject.getName}: ${material.getTitle()}`);
   }
 
   public createAssignment(subject: Subject, assignment: Assignment): void {
