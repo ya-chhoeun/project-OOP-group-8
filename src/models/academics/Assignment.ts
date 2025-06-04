@@ -7,6 +7,7 @@ export class Assignment {
   private description: string
   private dueDate: Date
   private subject: Subject
+  grades: any
   
 
 
