@@ -1,5 +1,4 @@
 import { User } from "./User"
-import type { Subject } from "../academics/Subject"
 
 export class Admin extends User {
   private adminLevel: string
