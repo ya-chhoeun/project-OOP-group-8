@@ -1,4 +1,5 @@
 import { User } from "./User";
+import { Teacher } from "./Teacher";
 import { Subject } from "../academics/Subject";
 import { Timetable } from "../academics/Timetable";
 import { Assignment } from "../academics/Assignment";
@@ -62,3 +63,5 @@ export class Student extends User {
     ];
   }
 }
+
+

@@ -11,4 +11,15 @@ export class Timetable {
         this.day = day;
         this.room = room;
     }
+    public getTime(): string {
+        return this.time;
+    }
+
+    public getDay(): string {
+        return this.day;
+    }
+
+    public getRoom(): string {
+        return this.room;
+    }
 }
