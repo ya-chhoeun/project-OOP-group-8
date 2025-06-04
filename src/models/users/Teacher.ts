@@ -1,8 +1,9 @@
-import { User } from "./User"
+import { User, Role } from "./User"
 import type { Subject } from "../academics/Subject"
 import type { Assignment } from "../academics/Assignment"
+
 export class Teacher extends User {
-  private teacherId: number
+  private teacherId: string
   private specialization: string
   private subjects: Subject[] = []
   private assignments: Assignment[] = []
@@ -14,19 +15,19 @@ export class Teacher extends User {
     password: string,
     phone: string,
     address: string,
-    teacherId: number,
+    teacherId: string,
     specialization: string,
   ) {
-    super(id, name, email, password, phone, address)
+    super(id, name, email, password, phone, address, Role.TEACHER)
     this.teacherId = teacherId
     this.specialization = specialization
   }
 
-  public getRole(): string {
+  public getSpecificRole(): string {
     return "Teacher"
   }
 
-  public getTeacherId(): number {
+  public getTeacherId(): string {
     return this.teacherId
   }
 
@@ -34,25 +35,25 @@ export class Teacher extends User {
     return this.specialization
   }
 
-  public assignSubject(subject: Subject): void {
+  public addSubject(subject: Subject): void {
+    if (!this.subjects.find((s) => s.getSubjectId() === subject.getSubjectId())) {
       this.subjects.push(subject)
-    
+    }
   }
 
   public getSubjects(): Subject[] {
     return this.subjects
   }
 
+  public createAssignment(assignment: Assignment): void {
+    this.assignments.push(assignment)
+  }
+
   public getAssignments(): Assignment[] {
     return this.assignments
   }
 
-  public removeSubject(subject: Subject): boolean {
-    const index = this.subjects.indexOf(subject)
-    if (index > -1) {
-      this.subjects.splice(index, 1)
-      return true
-    }
-    return false
+  public setSpecialization(specialization: string): void {
+    this.specialization = specialization
   }
 }
