@@ -13,7 +13,7 @@ enum Role {
   TEACHER = "teacher",
   ADMIN = "admin"
 }
-export class Student extends User {
+class Student extends User {
   private studentId: number;
 
   constructor(id: number, name: string, email: string, role: Role, password: string) {

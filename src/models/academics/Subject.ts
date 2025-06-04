@@ -4,6 +4,10 @@ export class Subject {
   private subject_code: string;
   private description: string;
 
+  getSubjectId() {
+    throw new Error("Method not implemented.")
+  }
+
   constructor(
     subject_id: string,
     subject_name: string,

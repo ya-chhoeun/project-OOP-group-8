@@ -19,13 +19,11 @@ export class Teacher extends User {
     name: string,
     email: string,
     password: string,
-    phone: string,
-    address: string,
     teacherId: string,
     specialization: string,
-    role: Role // Add this parameter
+    role: Role 
   ) {
-    super(id, name, email, role, password); // Pass role to super
+    super(id, name, email, role, password); 
     this.teacherId = teacherId
     this.specialization = specialization
   }
