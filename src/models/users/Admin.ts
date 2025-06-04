@@ -60,14 +60,14 @@ class Admin extends User {
   const admin = new Admin(1, "Admin Jane", "admin@example.com", Role.ADMIN, "adminpass", 1001);
 
   const assignment = new Assignment(
-    "A001",
+    1,
     "Math Homework",
     "Complete exercises 1-10",
     new Date("2025-06-10"),
     100,
     math,
     teacher
-  );
+    );
 
   // Actions
   admin.assignTeacherToSubject(teacher, math); 
