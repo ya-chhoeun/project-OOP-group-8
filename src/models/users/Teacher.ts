@@ -1,6 +1,12 @@
-import { User, Role } from "./User"
+import { User } from "./User"
 import type { Subject } from "../academics/Subject"
 import type { Assignment } from "../academics/Assignment"
+
+enum Role {
+    STUDENT = "student",
+    TEACHER = "teacher",
+    ADMIN = "admin"
+}
 
 export class Teacher extends User {
   private teacherId: string
@@ -9,7 +15,7 @@ export class Teacher extends User {
   private assignments: Assignment[] = []
 
   constructor(
-    id: string,
+    id: number,
     name: string,
     email: string,
     password: string,
@@ -17,8 +23,9 @@ export class Teacher extends User {
     address: string,
     teacherId: string,
     specialization: string,
+    role: Role // Add this parameter
   ) {
-    super(id, name, email, password, phone, address, Role.TEACHER)
+    super(id, name, email, role, password); // Pass role to super
     this.teacherId = teacherId
     this.specialization = specialization
   }
