@@ -1,14 +1,17 @@
+
 import { User } from "./User";
 import { Subject } from "../academics/Subject";
 import { StudyMaterial } from "../academics/StudyMateria";
 import { Assignment } from "../academics/Assignment";
 import { Student } from "./Student";
 
+
 enum Role {
-    STUDENT = "student",
-    TEACHER = "teacher",
-    ADMIN = "admin"
+  STUDENT = "student",
+  TEACHER = "teacher",
+  ADMIN = "admin"
 }
+
 
 export class Teacher extends User {
   private subjects: Subject[] = [];
@@ -24,8 +27,8 @@ export class Teacher extends User {
     public specialization: string
   ) {
     super(id, name, email, Role.TEACHER, password);
+    // You may want to initialize phone and address here if needed
   }
-
   public assignSubject(subject: Subject): void {
     this.subjects.push(subject);
   }
@@ -50,6 +53,13 @@ export class Teacher extends User {
       console.log(`${student.getName()} scored ${grade}`);
     } else {
       console.log(`${student.getName()} has no grade yet.`);
+    }
+  }
+
+  public addSubject(subject: Subject): void {
+    // Assuming Subject has a public getId() method
+    if (!this.subjects.find((s) => s.getId() === subject.getId())) {
+      this.subjects.push(subject)
     }
   }
 

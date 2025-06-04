@@ -1,9 +1,12 @@
+
 import { User, } from "./User"
 enum Role {
   STUDENT = "student",
   TEACHER = "teacher",
   ADMIN = "admin"
-}
+
+
+
 export class Admin extends User {
   private adminLevel: string
   private permissions: string[] = []
@@ -17,7 +20,8 @@ export class Admin extends User {
     address: string,
     adminLevel: string,
   ) {
-    super(id, name, email, Role.TEACHER, password);
+    // Assuming the User constructor is: constructor(id: string, name: string, password: string, role: Role, email: string)
+    super(id, name, password, Role.ADMIN, email);
     this.adminLevel = adminLevel
   }
 
