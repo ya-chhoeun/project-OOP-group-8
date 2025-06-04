@@ -1,15 +1,15 @@
-enum Role {
+export enum Role {
     STUDENT = "student",
     TEACHER = "teacher",
     ADMIN = "admin"
 }
 
 export abstract class User {
-    private id: number;
+    public id: number;
     private name: string;
     private email: string;
     private role: Role;
-    private password: string;
+    public password: string;
     private isLoggedIn: boolean = false;
     private static existingUsers: User[] = [];
 

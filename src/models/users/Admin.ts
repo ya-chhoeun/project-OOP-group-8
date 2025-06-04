@@ -13,7 +13,7 @@ export class Admin extends User {
     address: string,
     adminLevel: string,
   ) {
-    super(id, name, email, password, phone, address, Role.ADMIN)
+    super(id, name, email, password, phone)
     this.adminLevel = adminLevel
   }
 

@@ -1,4 +1,7 @@
 export class Subject {
+  getSubjectId() {
+    throw new Error("Method not implemented.")
+  }
   private id: string
   private subject_name: string
   private subject_code: string

@@ -9,16 +9,14 @@ export class Teacher extends User {
   private assignments: Assignment[] = []
 
   constructor(
-    id: string,
+    id: number,
     name: string,
     email: string,
     password: string,
-    phone: string,
-    address: string,
     teacherId: string,
     specialization: string,
   ) {
-    super(id, name, email, password, phone, address, Role.TEACHER)
+    super(id, name, email, password, Role.TEACHER)
     this.teacherId = teacherId
     this.specialization = specialization
   }
