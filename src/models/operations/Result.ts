@@ -1,11 +1,12 @@
-export class Result {
+class Result {
     private id: number;
     private studentId: number;
     private examId: number;
-    private grade: number; // fixed type
+    private grade: string;
     private date: Date;
 
-    constructor(id: number, studentId: number, examId: number, grade: number, date: Date) {
+
+    constructor(id: number, studentId: number, examId: number, grade: string, date: Date) {
         this.id = id;
         this.studentId = studentId;
         this.examId = examId;

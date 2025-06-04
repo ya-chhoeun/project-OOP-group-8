@@ -1,4 +1,4 @@
-export class Timetable {
+class Timetable {
     private id: number;
     private time: string;
     private day: string;

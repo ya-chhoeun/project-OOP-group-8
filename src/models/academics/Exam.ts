@@ -1,4 +1,4 @@
-export class Exam {
+class Exam {
     private examDate: Date;
     private result: number;
     private room: string;
