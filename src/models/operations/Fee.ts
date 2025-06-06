@@ -1,22 +1,34 @@
+// Fee.ts
 export class Fee {
-    getDueDate() {
-        throw new Error('Method not implemented.');
-    }
-    private id: number;
-    private amount: number;
-    private dueDate: Date;
-    private status: string;
+  private id: string;
+  private amount: number;
+  private dueDate: Date;
+  private paid: boolean;
 
-    constructor(id: number, amount: number, dueDate: Date, status: string) {
-        this.id = id;
-        this.amount = amount;
-        this.dueDate = dueDate;
-        this.status = status;
-    }
-    public getId(): number {
-        return this.id;
-    }
-    public getAmount(): number {
-        return this.amount;
-    }
+  constructor(id: string, amount: number, dueDate: Date, paid = false) {
+    this.id = id;
+    this.amount = amount;
+    this.dueDate = dueDate;
+    this.paid = paid;
+  }
+
+  public getId(): string {
+    return this.id;
+  }
+
+  public getAmount(): number {
+    return this.amount;
+  }
+
+  public getDueDate(): Date {
+    return this.dueDate;
+  }
+
+  public isPaid(): boolean {
+    return this.paid;
+  }
+
+  public markAsPaid(): void {
+    this.paid = true;
+  }
 }
