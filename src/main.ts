@@ -75,13 +75,13 @@ function main(): Result {
   const currentDate = new Date("2025-06-07T01:16:00+07:00").toISOString();
 
   // Create Subjects
-  const OOP = new Subject("OOP", "Mathematics", "OOp", "Advanced OOP Course", 4);
-  const physics = new Subject("PHYS101", "Physics", "PHYS101", "Introduction to Physics", 3);
+  const OOP = new Subject("OOP", "OOP", "OOP", "Advanced OOP Course", 4);
+  const PL = new Subject("PL", "PL", "PL", "Introduction to PL", 3);
   const chemistry = new Subject("CHEM101", "Chemistry", "CHEM101", "Basic Chemistry", 3);
 
   result.subjects.push(
     { id: OOP.getId(), name: OOP.getName(), credits: OOP.getCredits() },
-    { id: physics.getId(), name: physics.getName(), credits: physics.getCredits() },
+    { id: PL.getId(), name: PL.getName(), credits: PL.getCredits() },
     { id: chemistry.getId(), name: chemistry.getName(), credits: chemistry.getCredits() }
   );
 
@@ -97,7 +97,7 @@ function main(): Result {
     "Mathematics"
   );
 
-  const physicsTeacher = new Teacher(
+  const PLTeacher = new Teacher(
     102,
     "Prof. Michael Chen",
     "michael.chen@school.edu",
@@ -105,7 +105,7 @@ function main(): Result {
     "+1-555-0102",
     "456 Science Ave, Education City",
     1002,
-    "Physics"
+    "PL"
   );
 
   // Register Teachers
@@ -119,13 +119,13 @@ function main(): Result {
     timestamp: currentDate
   });
 
-  const physicsTeacherRegister = physicsTeacher.register();
+  const PLTeacherRegister = PLTeacher.register();
   result.authEvents.push({
     action: "register",
-    userId: physicsTeacher.getId(),
-    role: physicsTeacher.getRole(),
-    success: physicsTeacherRegister.success,
-    message: physicsTeacherRegister.message,
+    userId: PLTeacher.getId(),
+    role: PLTeacher.getRole(),
+    success: PLTeacherRegister.success,
+    message: PLTeacherRegister.message,
     timestamp: currentDate
   });
 
@@ -140,24 +140,24 @@ function main(): Result {
     timestamp: currentDate
   });
 
-  const physicsTeacherLogin = physicsTeacher.login("michael.chen@school.edu", "wrongpassword");
+  const PLTeacherLogin = PLTeacher.login("michael.chen@school.edu", "wrongpassword");
   result.authEvents.push({
     action: "login",
-    userId: physicsTeacher.getId(),
-    role: physicsTeacher.getRole(),
-    success: physicsTeacherLogin.success,
-    message: physicsTeacherLogin.message,
+    userId: PLTeacher.getId(),
+    role: PLTeacher.getRole(),
+    success: PLTeacherLogin.success,
+    message: PLTeacherLogin.message,
     timestamp: currentDate
   });
 
   result.teachers.push(
     { id: mathTeacher.getId(), name: mathTeacher.getName(), specialization: mathTeacher.specialization, teacherId: mathTeacher.teacherId, isLoggedIn: mathTeacher.isAuthenticated() },
-    { id: physicsTeacher.getId(), name: physicsTeacher.getName(), specialization: physicsTeacher.specialization, teacherId: physicsTeacher.teacherId, isLoggedIn: physicsTeacher.isAuthenticated() }
+    { id: PLTeacher.getId(), name: PLTeacher.getName(), specialization: PLTeacher.specialization, teacherId: PLTeacher.teacherId, isLoggedIn: PLTeacher.isAuthenticated() }
   );
 
   // Assign subjects to teachers
   mathTeacher.addSubject(OOP);
-  physicsTeacher.addSubject(physics);
+  PLTeacher.addSubject(PL);
 
   // Create Students
   const student1 = new Student(201, "Alice Smith", "alice.smith@student.edu", Role.STUDENT, "studentpass1");
@@ -242,7 +242,7 @@ function main(): Result {
 
   // Create Enrollments
   const enrollment1 = new Enrollment("ENR001", student1, OOP);
-  const enrollment2 = new Enrollment("ENR002", student1, physics);
+  const enrollment2 = new Enrollment("ENR002", student1, PL);
   const enrollment3 = new Enrollment("ENR003", student2, OOP);
 
   result.enrollments.push(
@@ -262,61 +262,61 @@ function main(): Result {
     mathTeacher
   );
 
-  const physicsAssignment = new Assignment(
+  const PLAssignment = new Assignment(
     2,
     "Newton's Laws Lab Report",
     "Write a comprehensive lab report on Newton's three laws",
     new Date("2025-01-20"),
     80,
-    physics,
-    physicsTeacher
+    PL,
+    PLTeacher
   );
 
   result.assignments.push(
     { id: mathAssignment.getId(), title: mathAssignment.getTitle(), dueDate: mathAssignment.getDueDate().toDateString() },
-    { id: physicsAssignment.getId(), title: physicsAssignment.getTitle(), dueDate: physicsAssignment.getDueDate().toDateString() }
+    { id: PLAssignment.getId(), title: PLAssignment.getTitle(), dueDate: PLAssignment.getDueDate().toDateString() }
   );
 
   // Publish assignments
   mathAssignment.publish();
-  physicsAssignment.publish();
+  PLAssignment.publish();
 
   // Add students to assignments
   mathAssignment.addStudent(student1);
   mathAssignment.addStudent(student2);
-  physicsAssignment.addStudent(student1);
+  PLAssignment.addStudent(student1);
 
   // Students submit assignments
   student1.submitAssignment(mathAssignment);
   mathAssignment.markSubmitted();
-  student1.submitAssignment(physicsAssignment);
-  physicsAssignment.markSubmitted();
+  student1.submitAssignment(PLAssignment);
+  PLAssignment.markSubmitted();
 
   // Grade assignments
   mathAssignment.assignGrade(85, 85);
-  physicsAssignment.assignGrade(72, 90);
+  PLAssignment.assignGrade(72, 90);
 
   const mathGrade = mathAssignment.getGrade();
-  const physicsGrade = physicsAssignment.getGrade();
+  const PLGrade = PLAssignment.getGrade();
   result.grades.push(
     { id: mathGrade?.getId() || null, assignmentId: mathAssignment.getId(), studentId: student1.getId(), score: mathGrade?.getScore() || null },
-    { id: physicsGrade?.getId() || null, assignmentId: physicsAssignment.getId(), studentId: student1.getId(), score: physicsGrade?.getScore() || null }
+    { id: PLGrade?.getId() || null, assignmentId: PLAssignment.getId(), studentId: student1.getId(), score: PLGrade?.getScore() || null }
   );
 
   // Create Timetable
   const mathClass = new Timetable(1, "09:00 AM", "Monday", "Room B05", OOP);
-  const physicsClass = new Timetable(2, "11:00 AM", "Monday", "Room 201", physics);
+  const PLClass = new Timetable(2, "11:00 AM", "Monday", "Room 201", PL);
 
   result.timetables.push(
     { id: mathClass.getId(), subjectId: mathClass.getSubject().getId(), day: mathClass.getDay(), time: mathClass.getTime(), room: mathClass.getRoom() },
-    { id: physicsClass.getId(), subjectId: physicsClass.getSubject().getId(), day: physicsClass.getDay(), time: physicsClass.getTime(), room: physicsClass.getRoom() }
+    { id: PLClass.getId(), subjectId: PLClass.getSubject().getId(), day: PLClass.getDay(), time: PLClass.getTime(), room: PLClass.getRoom() }
   );
 
   // Ensure Student has a timetables property
   if (!student1.hasOwnProperty('timetables')) {
     (student1 as any).timetables = [];
   }
-  student1.timetables.push(mathClass, physicsClass);
+  student1.timetables.push(mathClass, PLClass);
 
   // Create Study Materials
   const mathMaterial = new StudyMaterial(
@@ -437,10 +437,10 @@ function main(): Result {
       overdue: mathAssignment.isOverdue(),
       student1Submitted: mathAssignment.hasStudentSubmitted(student1)
     },
-    physicsAssignment: {
-      id: physicsAssignment.getId(),
-      overdue: physicsAssignment.isOverdue(),
-      student1Submitted: physicsAssignment.hasStudentSubmitted(student1)
+    PLAssignment: {
+      id: PLAssignment.getId(),
+      overdue: PLAssignment.isOverdue(),
+      student1Submitted: PLAssignment.hasStudentSubmitted(student1)
     }
   };
 
