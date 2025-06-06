@@ -41,7 +41,7 @@ export class Exam {
         return [...this.students];
     }
 
-    // ------------------ Setters ------------------
+    
     setExamDate(examDate: Date): void {
         if (!(examDate instanceof Date) || isNaN(examDate.getTime())) {
             throw new Error("Invalid exam date");

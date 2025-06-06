@@ -49,13 +49,18 @@ export class Feedback {
     return this.date
   }
 
-  public setRating(rating: number): void {
-    if (rating >= 1 && rating <= 5) {
-      this.rating = rating
+   public setRating(rating: number): void {
+    if (rating < 1 || rating > 5) {
+      throw new Error("Rating must be between 1 and 5.");
     }
+    this.rating = rating;
   }
 
   public setComment(comment: string): void {
     this.comment = comment
+  }
+
+  public toString(): string {
+    return `Feedback [ID: ${this.id}, Student: ${this.student.getName()}, Teacher: ${this.teacher.getName()}, Subject: ${this.subject.getName()}, Rating: ${this.rating}, Comment: ${this.comment}, Date: ${this.date.toDateString()}]`;
   }
 }
