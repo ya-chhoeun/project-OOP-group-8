@@ -7,32 +7,21 @@ import { Teacher } from '../users/Teacher';
 // Define the Teacher class (as per constructor requirement)
 
 export class Assignment {
-  id: number;
-  dueDate: Date;
-  submitted: Date | null; // Can be null if not submitted yet
-  grade: Grade | null; // Use Grade class; null if not graded yet
-  title: string;
-  description: string;
-  maxMarks: number;
-  subject: Subject;
-  teacher: Teacher;
-  isPublished: boolean;
-  students: Student[]; // List of students assigned to this assignment
-
-  constructor(
-    assignment_id: number,
-    title: string,
-    description: string,
-    dueDate: Date,
-    maxMarks: number,
-
+  
   private id: number
   public title: string
   private description: string
   private dueDate: Date
   private subject: Subject
+  private maxMarks: number
+  private teacher: Teacher
+  private submitted: Date | null
+  private grade: Grade | null
+  private isPublished: boolean
+  private students: Student[]
   grades: any
   
+
 
 
   constructor(
@@ -40,10 +29,11 @@ export class Assignment {
     title: string,
     description: string,
     dueDate: Date,
+    maxMarks: number,
     subject: Subject,
     teacher: Teacher
   ) {
-    this.id = assignment_id;
+    this.id = id;
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
@@ -65,6 +55,9 @@ export class Assignment {
   unpublish(): void {
     this.isPublished = false;
   }
+  public getGrade(): Grade | null {
+  return this.grade;
+}
 
   // Check if the assignment is overdue compared to current date
   isOverdue(): boolean {
@@ -116,12 +109,9 @@ export class Assignment {
   // Check if a specific student has submitted the assignment
   hasStudentSubmitted(student: Student): boolean {
     return this.students.some(s => s.getId() === student.getId()) && this.submitted !== null;
-=======
-    this.id = id
-    this.title = title
-    this.description = description
-    this.dueDate = dueDate
-    this.subject = subject
+  }
+  public getSubject(): Subject {
+    return this.subject
 
   }
 

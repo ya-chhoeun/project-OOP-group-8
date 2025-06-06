@@ -47,14 +47,16 @@ public addAssignment(assignment: Assignment): void {
 }
 
 
-  public viewStudentGrade(student: Student, assignment: Assignment): void {
-    const grade = assignment.grade;
-    if (grade !== undefined) {
-      console.log(`${student.getName()} scored ${grade}`);
-    } else {
-      console.log(`${student.getName()} has no grade yet.`);
-    }
+  // Inside Teacher.ts
+public viewStudentGrade(student: Student, assignment: Assignment): void {
+  const grade = assignment.getGrade();
+  if (grade !== null && grade !== undefined) {
+    console.log(`${student.getName()} scored ${grade.getScore()}`); // or grade.value or grade.score depending on your Grade class
+  } else {
+    console.log(`${student.getName()} has no grade yet.`);
   }
+}
+
 
   public addSubject(subject: Subject): void {
     // Assuming Subject has a public getId() method
