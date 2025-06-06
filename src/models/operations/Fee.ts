@@ -1,18 +1,17 @@
-// Fee.ts
 export class Fee {
-  private id: string;
+  private id: number;
   private amount: number;
   private dueDate: Date;
-  private paid: boolean;
+  private status: string;
 
-  constructor(id: string, amount: number, dueDate: Date, paid = false) {
+  constructor(id: number, amount: number, dueDate: Date, status: string) {
     this.id = id;
     this.amount = amount;
     this.dueDate = dueDate;
-    this.paid = paid;
+    this.status = status;
   }
 
-  public getId(): string {
+  public getId(): number {
     return this.id;
   }
 
@@ -24,11 +23,11 @@ export class Fee {
     return this.dueDate;
   }
 
-  public isPaid(): boolean {
-    return this.paid;
+  public getStatus(): string {
+    return this.status;
   }
 
-  public markAsPaid(): void {
-    this.paid = true;
+  public setStatus(status: string): void {
+    this.status = status;
   }
 }
