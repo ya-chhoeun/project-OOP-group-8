@@ -99,12 +99,6 @@ export class Exam {
         const sum = this.grades.reduce((acc, grade) => acc + grade.getScore(), 0);
         return Number((sum / this.grades.length).toFixed(2));
     }
-    printDetails(): void {
-        console.log(`Exam Date: ${this.getExamDate().toLocaleDateString()}`);
-        console.log(`Room: ${this.getRoom()}`);
-        console.log(`Max Score: ${this.getMaxScore()}`);
-        console.log(`Results: ${this.getResults()}`);
-        console.log(`Average Grade: ${this.getAverageGrade()}`);
-        console.log(`Number of Students: ${this.getStudents().length}`);
-    }
+    
+ 
 }
