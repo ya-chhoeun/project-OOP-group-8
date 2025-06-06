@@ -22,9 +22,10 @@ export class Student extends User {
   }
 
   viewTimetable(day?: string): Timetable[] {
-    const timetableEntry = day ? `Timetable for ${day}` : "Default Timetable";
-    return [new Timetable(1, "10:00 AM", day || "Monday", "Room A")];
-  }
+  const subject = new Subject("1","Mathematics","MATH101","Basic math course",3);
+  return [new Timetable(1, "10:00 AM", day || "Monday", "Room A", subject)];
+}
+
 
   submitAssignment(assignment: Assignment): Assignment {
     console.log(`Assignment submitted by ${this.getName()}`);
