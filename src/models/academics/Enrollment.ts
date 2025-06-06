@@ -1,5 +1,5 @@
 import { Student } from "../users/Student"
-import type { Subject } from "./Subject"
+import { Subject } from "./Subject"
 
 export class Enrollment {
   private id: string
