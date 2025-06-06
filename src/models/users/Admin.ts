@@ -3,7 +3,8 @@ import { User, } from "./User"
 enum Role {
   STUDENT = "student",
   TEACHER = "teacher",
-  ADMIN = "admin"
+  ADMIN = "admin",
+}
 
 
 

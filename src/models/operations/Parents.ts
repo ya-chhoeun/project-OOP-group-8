@@ -60,7 +60,7 @@ export class Parents {
   }
 
   public removeStudent(studentId: string): void {
-    this.students = this.students.filter((s) => s.getId() !== studentId)
+    this.students = this.students.filter((s) => s.getId() !== Number(studentId))
   }
 
   public setPhone(phone: string): void {

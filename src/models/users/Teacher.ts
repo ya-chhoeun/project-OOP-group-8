@@ -3,7 +3,7 @@ import { User } from "./User";
 import { Subject } from "../academics/Subject";
 import { StudyMaterial } from "../academics/StudyMateria";
 import { Assignment } from "../academics/Assignment";
-import { Student } from "./Student";
+import { Student } from "../users/Student";
 
 
 enum Role {
