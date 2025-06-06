@@ -1,54 +1,87 @@
+import { Subject } from "../academics/Subject";
+import { Assignment } from "../academics/Assignment";
+import { User } from "./User";
+import { Teacher } from "./Teacher";
+import { Student } from "./Student";
 
-import { User, } from "./User"
 enum Role {
   STUDENT = "student",
   TEACHER = "teacher",
   ADMIN = "admin",
 }
+class Admin extends User {
+  private adminId: number;
+  private teacherAssignments: Map<number, Subject> = new Map();
+  private studentEnrollments: Map<number, Set<Subject>> = new Map();
 
-
-
-export class Admin extends User {
-  private adminLevel: string
-  private permissions: string[] = []
-
-  constructor(
-    id: number,
-    name: string,
-    email: string,
-    password: string,
-    phone: string,
-    address: string,
-    adminLevel: string,
-  ) {
-    // Assuming the User constructor is: constructor(id: string, name: string, password: string, role: Role, email: string)
-    super(id, name, password, Role.ADMIN, email);
-    this.adminLevel = adminLevel
+  constructor(id: number, name: string, email: string, role: Role, password: string, adminId: number) {
+    super(id, name, email, role, password);
+    this.adminId = adminId;
   }
 
-  public getSpecificRole(): string {
-    return "Admin"
-  }
-
-  public getAdminLevel(): string {
-    return this.adminLevel
-  }
-
-  public addPermission(permission: string): void {
-    if (!this.permissions.includes(permission)) {
-      this.permissions.push(permission)
+  public assignTeacherToSubject(teacher: Teacher, subject: Subject): void {
+    if (!teacher || !subject) {
+      console.error("Teacher or subject cannot be null");
+      return;
     }
+    this.teacherAssignments.set(teacher.getId(), subject);
+    teacher.addSubject(subject);
+    console.log(`Assigned teacher ${teacher.getName()} to subject ${subject.getName()}`);
   }
 
-  public getPermissions(): string[] {
-    return this.permissions
+  public enrollStudentInSubject(student: Student, subject: Subject): void {
+    if (!student || !subject) {
+      console.error("Student or subject cannot be null");
+      return;
+    }
+    if (!this.studentEnrollments.has(student.getId())) {
+      this.studentEnrollments.set(student.getId(), new Set());
+    }
+    this.studentEnrollments.get(student.getId())!.add(subject);
+    console.log(`Enrolled student ${student.getName()} in subject ${subject.getName()}`);
   }
 
-  public hasPermission(permission: string): boolean {
-    return this.permissions.includes(permission)
-  }
-
-  public removePermission(permission: string): void {
-    this.permissions = this.permissions.filter((p) => p !== permission)
+  public getAdminId(): number {
+    return this.adminId;
   }
 }
+
+(() => {
+  const math = new Subject("S001", "Mathematics", "MATH101", "Basic Mathematics", 3);
+  const teacher = new Teacher(
+    2,
+    "Mr. John",
+    "john@example.com",
+    "pass123",
+    "010123456",
+    "No. 25, Phnom Penh",
+    2001,
+    "Mathematics"
+  );
+  const student = new Student(3, "Alice", "alice@example.com", Role.STUDENT, "pass456");
+
+  const admin = new Admin(1, "Admin Jane", "admin@example.com", Role.ADMIN, "adminpass", 1001);
+
+  const assignment = new Assignment(
+    1,
+    "Math Homework",
+    "Complete exercises 1-10",
+    new Date("2025-06-10"),
+    100,
+    math,
+    teacher
+  );
+
+  // Actions
+  admin.assignTeacherToSubject(teacher, math);
+  teacher.addAssignment(assignment);
+  admin.enrollStudentInSubject(student, math);
+
+  // Timestamp
+  const currentDate = new Date("2025-06-03T20:42:00+07:00").toLocaleString("en-US", {
+    timeZone: "Asia/Bangkok",
+  });
+
+  console.log(`Current Date: ${currentDate}`);
+
+})();

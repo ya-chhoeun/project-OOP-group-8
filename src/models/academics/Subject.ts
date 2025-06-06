@@ -3,9 +3,7 @@ export class Subject {
   private subject_name: string;
   private subject_code: string;
   private description: string;
-  getSubjectId() {
-    throw new Error("Method not implemented.")
-  }
+  private credits: number; 
 
   constructor(
     subject_id: string,
@@ -18,12 +16,18 @@ export class Subject {
     this.subject_name = subject_name;
     this.subject_code = subject_code;
     this.description = description;
-  }
-   public getName(): string {
-    return this.subject_name;
+    this.credits = credits; 
   }
 
   public getId(): string {
     return this.id;
+  }
+
+  public getName(): string {
+    return this.subject_name;
+  }
+
+  public getCredits(): number {
+    return this.credits;
   }
 }

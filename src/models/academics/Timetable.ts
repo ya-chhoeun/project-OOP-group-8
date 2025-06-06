@@ -1,3 +1,4 @@
+
 export class Timetable {
     private id: number;
     private time: string;

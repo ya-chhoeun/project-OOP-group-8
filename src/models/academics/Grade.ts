@@ -1,3 +1,4 @@
+
 export class Grade {
     private id: number;
     private score: number;
@@ -8,4 +9,7 @@ export class Grade {
         this.score = score;
         this.comments = comments;
     }
+    getScore(): number {
+  return this.score;
+}
 }

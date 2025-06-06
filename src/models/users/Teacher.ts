@@ -1,4 +1,3 @@
-
 import { User } from "./User";
 import { Subject } from "../academics/Subject";
 import { StudyMaterial } from "../academics/StudyMateria";
@@ -37,24 +36,27 @@ export class Teacher extends User {
     if (!this.subjects.includes(subject)) {
       throw new Error("Not authorized to upload for this subject.");
     }
-    console.log(`Material uploaded for ${subject.getName}: ${material.getTitle()}`);
+    console.log(`Material uploaded for ${subject.getName()}: ${material.getTitle()}`);
   }
 
-  public createAssignment(subject: Subject, assignment: Assignment): void {
-    if (!this.subjects.includes(subject)) {
-      throw new Error("Not authorized to create assignment for this subject.");
-    }
-    console.log(`Assignment created: ${assignment.getTitle()}`);
-  }
+  private assignments: Assignment[] = [];
 
-  public viewStudentGrade(student: Student, assignment: Assignment): void {
-    const grade = assignment.grades.get(student);
-    if (grade !== undefined) {
-      console.log(`${student.getName()} scored ${grade}`);
-    } else {
-      console.log(`${student.getName()} has no grade yet.`);
-    }
+public addAssignment(assignment: Assignment): void {
+  this.assignments.push(assignment);
+  console.log(`Assignment added: ${assignment.title}`);
+}
+
+
+  // Inside Teacher.ts
+public viewStudentGrade(student: Student, assignment: Assignment): void {
+  const grade = assignment.getGrade();
+  if (grade !== null && grade !== undefined) {
+    console.log(`${student.getName()} scored ${grade.getScore()}`); // or grade.value or grade.score depending on your Grade class
+  } else {
+    console.log(`${student.getName()} has no grade yet.`);
   }
+}
+
 
   public addSubject(subject: Subject): void {
     // Assuming Subject has a public getId() method
