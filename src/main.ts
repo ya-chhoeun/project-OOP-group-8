@@ -75,12 +75,12 @@ function main(): Result {
   const currentDate = new Date("2025-06-07T01:16:00+07:00").toISOString();
 
   // Create Subjects
-  const mathematics = new Subject("MATH101", "Mathematics", "MATH101", "Advanced Mathematics Course", 4);
+  const OOP = new Subject("OOP", "Mathematics", "OOp", "Advanced OOP Course", 4);
   const physics = new Subject("PHYS101", "Physics", "PHYS101", "Introduction to Physics", 3);
   const chemistry = new Subject("CHEM101", "Chemistry", "CHEM101", "Basic Chemistry", 3);
 
   result.subjects.push(
-    { id: mathematics.getId(), name: mathematics.getName(), credits: mathematics.getCredits() },
+    { id: OOP.getId(), name: OOP.getName(), credits: OOP.getCredits() },
     { id: physics.getId(), name: physics.getName(), credits: physics.getCredits() },
     { id: chemistry.getId(), name: chemistry.getName(), credits: chemistry.getCredits() }
   );
@@ -156,7 +156,7 @@ function main(): Result {
   );
 
   // Assign subjects to teachers
-  mathTeacher.addSubject(mathematics);
+  mathTeacher.addSubject(OOP);
   physicsTeacher.addSubject(physics);
 
   // Create Students
@@ -241,9 +241,9 @@ function main(): Result {
   );
 
   // Create Enrollments
-  const enrollment1 = new Enrollment("ENR001", student1, mathematics);
+  const enrollment1 = new Enrollment("ENR001", student1, OOP);
   const enrollment2 = new Enrollment("ENR002", student1, physics);
-  const enrollment3 = new Enrollment("ENR003", student2, mathematics);
+  const enrollment3 = new Enrollment("ENR003", student2, OOP);
 
   result.enrollments.push(
     { id: enrollment1.getId(), studentId: enrollment1.getStudent().getId(), subjectId: enrollment1.getSubject().getId() },
@@ -258,7 +258,7 @@ function main(): Result {
     "Solve differential equations from chapter 5",
     new Date("2025-01-15"),
     100,
-    mathematics,
+    OOP,
     mathTeacher
   );
 
@@ -304,7 +304,7 @@ function main(): Result {
   );
 
   // Create Timetable
-  const mathClass = new Timetable(1, "09:00 AM", "Monday", "Room 101", mathematics);
+  const mathClass = new Timetable(1, "09:00 AM", "Monday", "Room B05", OOP);
   const physicsClass = new Timetable(2, "11:00 AM", "Monday", "Room 201", physics);
 
   result.timetables.push(
@@ -323,7 +323,7 @@ function main(): Result {
     "MAT001",
     "Calculus Textbook Chapter 5",
     "Essential reading for differential equations",
-    mathematics,
+    OOP,
     mathTeacher,
     "/materials/calculus-ch5.pdf",
     "pdf"
@@ -345,7 +345,7 @@ function main(): Result {
   const attendance1 = new Attendance(
     "ATT001",
     student1,
-    mathematics,
+    OOP,
     new Date("2025-01-08"),
     "present"
   );
@@ -353,7 +353,7 @@ function main(): Result {
   const attendance2 = new Attendance(
     "ATT002",
     student2,
-    mathematics,
+    OOP,
     new Date("2025-01-08"),
     "late",
     "Arrived 10 minutes late"
@@ -369,7 +369,7 @@ function main(): Result {
     "FB001",
     student1,
     mathTeacher,
-    mathematics,
+    OOP,
     5,
     "Excellent teaching methods and clear explanations!"
   );
