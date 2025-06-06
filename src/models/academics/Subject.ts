@@ -1,22 +1,29 @@
-
 export class Subject {
-  public subject_id: string
-  public subject_name: string
-  public subject_code: string
-  public credits: number
-  public description: string
+  private id: string;
+  private subject_name: string;
+  private subject_code: string;
+  private description: string;
+  getSubjectId() {
+    throw new Error("Method not implemented.")
+  }
 
   constructor(
     subject_id: string,
     subject_name: string,
     subject_code: string,
-    credits: number,
     description: string,
+    credits: number
   ) {
-    this.subject_id = subject_id
-    this.subject_name = subject_name
-    this.subject_code = subject_code
-    this.credits = credits
-    this.description = description
+    this.id = subject_id;
+    this.subject_name = subject_name;
+    this.subject_code = subject_code;
+    this.description = description;
+  }
+   public getName(): string {
+    return this.subject_name;
+  }
+
+  public getId(): string {
+    return this.id;
   }
 }

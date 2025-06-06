@@ -1,4 +1,4 @@
- export class Fee {
+export class Fee {
     private id: number;
     private amount: number;
     private dueDate: Date;
@@ -9,5 +9,11 @@
         this.amount = amount;
         this.dueDate = dueDate;
         this.status = status;
+    }
+    public getId(): number {
+        return this.id;
+    }
+    public getAmount(): number {
+        return this.amount;
     }
 }

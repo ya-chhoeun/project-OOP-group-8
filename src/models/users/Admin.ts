@@ -54,19 +54,24 @@ class Admin extends User {
 (() => {
   const math = new Subject("S001", "Mathematics", "MATH101", 3, "Basic Mathematics");
 
-  const teacher = new Teacher(2, "Mr. John", "john@example.com", Role.TEACHER, "pass123", 1002, "Mathematics");
+  const teacher = new Teacher(2, "Mr. John", "john@example.com", Role.TEACHER, "pass123", 1002, "Mathematics", "Mathematics");
   const student = new Student(3, "Alice", "alice@example.com", Role.STUDENT, "pass456");
 
   const admin = new Admin(1, "Admin Jane", "admin@example.com", Role.ADMIN, "adminpass", 1001);
 
   const assignment = new Assignment(
-    1,
+    1, 
     "Math Homework",
-    "Complete exercises 1-10",
-    new Date("2025-06-10"),
+    "Complete exercises 1-10", 
+    new Date("2025-06-10"), 
     100,
-    math,
-    teacher
+    math, 
+    teacher, 
+    [], 
+    false, 
+    new Date(), 
+    new Date(), 
+    null 
     );
 
   // Actions
