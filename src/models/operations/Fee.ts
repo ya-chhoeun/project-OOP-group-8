@@ -1,4 +1,7 @@
 export class Fee {
+    getDueDate() {
+        throw new Error('Method not implemented.');
+    }
     private id: number;
     private amount: number;
     private dueDate: Date;
