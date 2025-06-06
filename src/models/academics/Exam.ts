@@ -16,9 +16,9 @@ export class Exam {
         this.setMaxScore(maxScore);
     }
 
-    // Getters
+
     getExamDate(): Date {
-        return new Date(this.examDate); // Return a copy to prevent external modification
+        return new Date(this.examDate);
     }
 
     getResults(): number {
@@ -34,14 +34,14 @@ export class Exam {
     }
 
     getGrades(): Grade[] {
-        return [...this.grades]; // Return a copy to prevent external modification
+        return [...this.grades];
     }
 
     getStudents(): Student[] {
-        return [...this.students]; // Return a copy to prevent external modification
+        return [...this.students];
     }
 
-    // Setters with validation
+    // ------------------ Setters ------------------
     setExamDate(examDate: Date): void {
         if (!(examDate instanceof Date) || isNaN(examDate.getTime())) {
             throw new Error("Invalid exam date");
@@ -70,10 +70,13 @@ export class Exam {
         this.maxScore = maxScore;
     }
 
-    // Methods to manage relationships
+
     addGrade(grade: Grade): void {
         if (!grade || grade.getScore() > this.maxScore) {
             throw new Error("Invalid grade or score exceeds maxScore");
+        }
+        if (this.gradeExists(grade.getId())) {
+            throw new Error("Grade with this ID already exists");
         }
         this.grades.push(grade);
     }
@@ -86,6 +89,9 @@ export class Exam {
         if (!student) {
             throw new Error("Invalid student");
         }
+        if (this.isStudentEnrolled(student.getId())) {
+            throw new Error("Student already enrolled in this exam");
+        }
         this.students.push(student);
     }
 
@@ -93,12 +99,45 @@ export class Exam {
         this.students = this.students.filter(student => student.getId() !== studentId);
     }
 
-    // Additional useful method
+    // Calculates and returns the average grade score.
     getAverageGrade(): number {
         if (this.grades.length === 0) return 0;
         const sum = this.grades.reduce((acc, grade) => acc + grade.getScore(), 0);
         return Number((sum / this.grades.length).toFixed(2));
     }
-    
- 
+
+    // Checks if a student is already enrolled in the exam.
+    isStudentEnrolled(studentId: number): boolean {
+        return this.students.some(student => student.getId() === studentId);
+    }
+    // Returns a grade by its ID, or undefined if not found.
+    gradeExists(gradeId: number): boolean {
+        return this.grades.some(grade => grade.getId() === gradeId);
+    }
+
+    // Checks if a grade with the given ID exists.
+    getStudentById(studentId: number): Student | undefined {
+        return this.students.find(student => student.getId() === studentId);
+    }
+
+    // Returns a student by their ID, or undefined if not found.
+    getGradeById(gradeId: number): Grade | undefined {
+        return this.grades.find(grade => grade.getId() === gradeId);
+    }
+
+    clearAllStudents(): void {
+        this.students = [];
+    }
+
+    clearAllGrades(): void {
+        this.grades = [];
+    }
+
+    getStudentCount(): number {
+        return this.students.length;
+    }
+
+    getGradeCount(): number {
+        return this.grades.length;
+    }
 }
