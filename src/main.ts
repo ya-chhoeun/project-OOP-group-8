@@ -345,24 +345,26 @@ function main(): Result {
   // Create Attendance Records
   const attendance1 = new Attendance(
     "OOP01",
-    student1,
-    OOP,
+    student1.getId(),
+    student1.getName(),
     new Date("2025-01-08"),
-    "present"
+    "present",
+    OOP
   );
 
   const attendance2 = new Attendance(
     "OOP02",
-    student2,
-    OOP,
+    student2.getId(),
+    student2.getName(),
     new Date("2025-01-08"),
     "late",
+    OOP,
     "Arrived 10 minutes late"
   );
 
   result.attendanceRecords.push(
-    { id: attendance1.getId(), studentId: attendance1.getStudent().getId(), subjectId: attendance1.getSubject().getId(), status: attendance1.getStatus(), date: attendance1.getDate().toISOString() },
-    { id: attendance2.getId(), studentId: attendance2.getStudent().getId(), subjectId: attendance2.getSubject().getId(), status: attendance2.getStatus(), date: attendance2.getDate().toISOString(), remarks: attendance2.getRemarks() }
+    { id: attendance1.getId(), studentId: attendance1.getStudentId(), subjectId: attendance1.getSubject().getId(), status: attendance1.getStatus(), date: attendance1.getDate().toISOString() },
+    { id: attendance2.getId(), studentId: attendance2.getStudentId(), subjectId: attendance2.getSubject().getId(), status: attendance2.getStatus(), date: attendance2.getDate().toISOString(), remarks: attendance2.getRemarks() }
   );
 
   // Create Feedback
@@ -406,10 +408,11 @@ function main(): Result {
   });
 
   // Create Fee
-  const tuitionFee = new Fee(1, 5000, new Date("2025-02-01"), "pending");
+  const tuitionFee = new Fee(
+  "FEE001",5000,new Date("2025-02-01"),OOP,student1,undefined,false);
 
   result.fees.push({
-    id: tuitionFee.getId(),
+    id: Number(tuitionFee.getId()),
     amount: tuitionFee.getAmount(),
     dueDate: tuitionFee.getDueDate().toDateString(),
     status: tuitionFee.getStatus()
