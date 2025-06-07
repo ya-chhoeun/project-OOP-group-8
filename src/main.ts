@@ -196,7 +196,7 @@ function main(): Result {
     timestamp: currentDate
   });
 
-  const student2Login = student2.login("bob.wilson@student.edu", "wrongpass");
+  const student2Login = student2.login("sophy.em@student.passerellesnumeriques.org", "wrongpass");
   result.authEvents.push({
     action: "login",
     userId: student2.getId(),
@@ -213,7 +213,7 @@ function main(): Result {
   );
 
   // Create Admin
-  const admin = new Admin(301, "Admin One", "admin@school.edu", "adminpass1");
+  const admin = new Admin(301, "Admin Phy", "sophy.em@student.passerellesnumeriques.org", "1234567");
 
   // Register and Login Admin
   const adminRegister = admin.register();
