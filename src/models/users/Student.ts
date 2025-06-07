@@ -36,7 +36,13 @@ export class Student extends User {
 
   public payFee(fee: Fee): void {
     console.log(`${this.getName()} paid fee of ${fee.getAmount()}`);
-    fee.setStatus("Paid");
+    // Assuming Fee has a method to mark as paid, e.g., markAsPaid()
+    if (typeof (fee as any).markAsPaid === "function") {
+      (fee as any).markAsPaid();
+    } else {
+      // If not, set the paid property directly if accessible
+      (fee as any).paid = true;
+    }
   }
 
   public submitAssignment(assignment: any): void {

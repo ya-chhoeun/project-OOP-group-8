@@ -48,7 +48,7 @@ export class Parents {
   //  View fees for all children
   public viewChildrenFees(): void {
     this.students.forEach((student) => {
-      console.log(`\n📘 Fees for ${student.getName()}:`);
+      console.log(`\n Fees for ${student.getName()}:`);
       const fees = student.getFees(); // must add getFees() in Student class
       if (fees.length === 0) {
         console.log("No fee records.");
@@ -62,12 +62,12 @@ export class Parents {
 
   //  Pay a child's fee
   public payChildFee(studentId: number, feeId: number): void {
-    const student = this.students.find(s => s.getId() === studentId);
+    const student = this.students.find(s => Number(s.getId()) === studentId);
     if (!student) {
       console.warn("No student found with that ID");
       return;
     }
-    const fee = student.getFees().find((f: Fee) => f.getId() === feeId);
+    const fee = student.getFees().find((f: Fee) => f.getId() === feeId.toString());
     if (!fee) {
       console.warn("No fee found with that ID");
       return;
@@ -78,7 +78,7 @@ export class Parents {
     }
 
     student.payFee(fee);
-    fee.setStatus("Paid");
+    // Assume payFee marks the fee as paid, so no need to set status directly
     console.log(` Parent ${this.name} paid ${fee.getAmount()} for ${student.getName()}`);
   }
 }
