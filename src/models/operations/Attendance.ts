@@ -1,4 +1,5 @@
 import { Student } from "../users/Student";
+import { Subject } from '../academics/Subject';
 
 export class Attendance {
   private static records: Attendance[] = []; // All attendance records
@@ -9,13 +10,19 @@ export class Attendance {
     private studentName: string,
     private date: Date,
     private status: string,
-    private remarks?: string
-  ) {}
+    private subject: Subject,
+    private remarks?: string) {
+    
+    }
+
+    public getSubject(): Subject {
+    return this.subject;
+  }
 
   /**
    * Marks attendance for a student
    */
-  public static mark(student: Student, date: Date, status: string, remarks?: string): void {
+  public static mark(student: Student, date: Date, status: string, subject: Subject, remarks?: string): void {
     const attendanceId = `${student.getId()}-${date.toISOString()}`;
 
     // Check if already marked
@@ -36,11 +43,12 @@ export class Attendance {
       student.getName(),
       date,
       status,
+      subject,
       remarks
     );
 
     Attendance.records.push(record);
-    console.log(`✅ Marked ${student.getName()} as '${status}' on ${date.toDateString()}${remarks ? ` (Remarks: ${remarks})` : ""}`);
+    console.log(`Marked ${student.getName()} as '${status}' on ${date.toDateString()}${remarks ? ` (Remarks: ${remarks})` : ""}`);
   }
 
   /**
