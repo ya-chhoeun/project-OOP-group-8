@@ -88,21 +88,21 @@ function main(): Result {
   // Create Teachers
   const OOPTeacher = new Teacher(
     101,
-    "Dr. Sarah Johnson",
-    "sarah.johnson@school.edu",
-    "password123",
-    "+1-555-0101",
-    "123 Academic St, Education City",
+    "Mr. Sophy Em",
+    "sophy.em@student.passerellesnumeriques.org",
+    "1234567",
+    "+885-967-841-659",
+    "#371 2004 St, Phnom Penh",
     1001,
     "OOPematics"
   );
 
   const PLTeacher = new Teacher(
     102,
-    "Prof. Michael Chen",
-    "michael.chen@school.edu",
+    "Yaa chhoun",
+    "yaa.chhoun@student.passerellesnumeriques.org",
     "password456",
-    "+1-555-0102",
+    "+855-123-456-789",
     "456 Science Ave, Education City",
     1002,
     "PL"
