@@ -46,6 +46,10 @@ export class Assignment {
   unpublish(): void {
     this.isPublished = false;
   }
+  getGrade(): Grade | null {
+  return this.grade;
+}
+
 
   isOverdue(): boolean {
     const now = new Date();
