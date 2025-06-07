@@ -77,12 +77,12 @@ function main(): Result {
   // Create Subjects
   const OOP = new Subject("OOP", "OOP", "OOP", "Advanced OOP Course", 4);
   const PL = new Subject("PL", "PL", "PL", "Introduction to PL", 3);
-  const chemistry = new Subject("CHEM101", "Chemistry", "CHEM101", "Basic Chemistry", 3);
+  const LOGIC = new Subject("LOGIC01", "LOGIC", "LOGIC01", "Basic LOGIC", 3);
 
   result.subjects.push(
     { id: OOP.getId(), name: OOP.getName(), credits: OOP.getCredits() },
     { id: PL.getId(), name: PL.getName(), credits: PL.getCredits() },
-    { id: chemistry.getId(), name: chemistry.getName(), credits: chemistry.getCredits() }
+    { id: LOGIC.getId(), name: LOGIC.getName(), credits: LOGIC.getCredits() }
   );
 
   // Create Teachers
