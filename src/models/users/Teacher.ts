@@ -1,15 +1,8 @@
-import { User } from "./User";
+import { User, Role } from "./User";
 import { Subject } from "../academics/Subject";
 import { StudyMaterial } from "../academics/StudyMateria";
 import { Assignment } from "../academics/Assignment";
 import { Student } from "../users/Student";
-
-
-enum Role {
-  STUDENT = "student",
-  TEACHER = "teacher",
-  ADMIN = "admin"
-}
 
 
 export class Teacher extends User {
@@ -43,7 +36,7 @@ export class Teacher extends User {
 
 public addAssignment(assignment: Assignment): void {
   this.assignments.push(assignment);
-  console.log(`Assignment added: ${assignment.title}`);
+  console.log(`Assignment added: ${assignment.getTitle()}`);
 }
 
 

@@ -1,77 +1,43 @@
-import type { Student } from "../users/Student"
-
 export class Parents {
-  private id: string
-  private name: string
-  private email: string
-  private phone: string
-  private address: string
-  private relationship: "father" | "mother" | "guardian"
-  private students: Student[] = []
+  private id: string;
+  private name: string;
+  private email: string;
+  private phone: string;
+  private address: string;
+  private relationship: string;
+  private students: any[];
 
-  constructor(
-    id: string,
-    name: string,
-    email: string,
-    phone: string,
-    address: string,
-    relationship: "father" | "mother" | "guardian",
-  ) {
-    this.id = id
-    this.name = name
-    this.email = email
-    this.phone = phone
-    this.address = address
-    this.relationship = relationship
+  constructor(id: string, name: string, email: string, phone: string, address: string, relationship: string) {
+    this.id = id;
+    this.name = name;
+    this.email = email;
+    this.phone = phone;
+    this.address = address;
+    this.relationship = relationship;
+    this.students = [];
   }
 
   public getId(): string {
-    return this.id
+    return this.id;
   }
 
   public getName(): string {
-    return this.name
-  }
-
-  public getEmail(): string {
-    return this.email
+    return this.name;
   }
 
   public getPhone(): string {
-    return this.phone
-  }
-
-  public getAddress(): string {
-    return this.address
+    return this.phone;
   }
 
   public getRelationship(): string {
-    return this.relationship
+    return this.relationship;
   }
 
-  public getStudents(): Student[] {
-    return this.students
+  public addStudent(student: any): void {
+    this.students.push(student);
   }
 
-  public addStudent(student: Student): void {
-    if (!this.students.find((s) => s.getId() === student.getId())) {
-      this.students.push(student)
-    }
-  }
-
-  public removeStudent(studentId: string): void {
-    this.students = this.students.filter((s) => s.getId() !== Number(studentId))
-  }
-
-  public setPhone(phone: string): void {
-    this.phone = phone
-  }
-
-  public setEmail(email: string): void {
-    this.email = email
-  }
-
-  public setAddress(address: string): void {
-    this.address = address
+  public getStudents(): any[] {
+    return this.students;
   }
 }

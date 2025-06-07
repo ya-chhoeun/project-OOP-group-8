@@ -1,4 +1,5 @@
-import { User } from "./User";
+
+import { User, Role } from "./User";
 import { Subject } from "../academics/Subject";
 import { Timetable } from "../academics/Timetable";
 import { Assignment } from "../academics/Assignment";
@@ -9,28 +10,24 @@ import { Result } from "../operations/Result";
 import { Feedback } from "../academics/Feedback";
 import { Teacher } from "./Teacher";
 
-enum Role {
-  STUDENT = "student",
-  TEACHER = "teacher",
-  ADMIN = "admin"
-}
-
 export class Student extends User {
-  private studentId: number;
+  public timetables: any[] = [];
 
   constructor(id: number, name: string, email: string, role: Role, password: string) {
     super(id, name, email, role, password);
-    this.studentId = id;
   }
 
   viewTimetable(day?: string): Timetable[] {
     const subject = new Subject("1", "Mathematics", "MATH101", "Basic math course", 3);
-    return [new Timetable(1, "10:00 AM", day || "Monday", "Room A")];
+    return [new Timetable(1, "10:00 AM", day || "Monday", "Room A", subject)];
   }
 
-  submitAssignment(assignment: Assignment): Assignment {
-    console.log(`Assignment submitted by ${this.getName()}`);
-    return assignment;
+  public submitAssignment(assignment: any): void {
+    // Simulated submission
+  }
+
+  public payFee(fee: Fee): void {
+    console.log(`${this.getName()} paid fee of ${fee.getAmount()}`);
   }
 
   viewGrade(): Grade[] {
@@ -60,10 +57,6 @@ export class Student extends User {
     );
     console.log(`Feedback submitted: ${feedback.toString()}`);
     return feedback;
-  }
-
-  payFee(fee: Fee): void {
-    console.log(`${this.getName()} paid fee of ${fee.getAmount()}`);
   }
 
   viewResult(): Result[] {

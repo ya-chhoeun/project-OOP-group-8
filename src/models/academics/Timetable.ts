@@ -1,27 +1,35 @@
-
 export class Timetable {
-    private id: number;
-    private time: string;
-    private day: string;
-    private room: string;
+  private id: number;
+  private time: string;
+  private day: string;
+  private room: string;
+  private subject: any;
 
+  constructor(id: number, time: string, day: string, room: string, subject: any) {
+    this.id = id;
+    this.time = time;
+    this.day = day;
+    this.room = room;
+    this.subject = subject;
+  }
 
-    constructor(id: number, time: string, day: string, room: string) {
-        this.id = id;
-        this.time = time;
-        this.day = day;
-        this.room = room;
-    }
-    public getTime(): string {
-        return this.time;
-    }
+  public getId(): number {
+    return this.id;
+  }
 
-    public getDay(): string {
-        return this.day;
-    }
+  public getSubject(): any {
+    return this.subject;
+  }
 
-    public getRoom(): string {
-        return this.room;
-    }
-}
+  public getDay(): string {
+    return this.day;
+  }
 
+  public getTime(): string {
+    return this.time;
+  }
+
+  public getRoom(): string {
+    return this.room;
+  }
+} 
