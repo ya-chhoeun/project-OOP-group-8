@@ -61,4 +61,37 @@ export class StudyMaterial {
   public getUploadDate(): Date {
     return this.uploadDate
   }
+
+  // ========== Relationship Helpers ==========
+
+  /** Check if this material was uploaded by a specific teacher */
+  public isUploadedBy(teacher: Teacher): boolean {
+    return this.teacher === teacher
+  }
+
+  /** Check if this material belongs to a specific subject */
+  public isForSubject(subject: Subject): boolean {
+    return this.subject.getId() === subject.getId()
+  }
+
+  /** Returns a brief summary of the material */
+  public getSummary(): string {
+    return `${this.title} (${this.materialType}) for ${this.subject.getName()} by ${this.teacher.getName()}`
+  }
+
+  /** Returns a JSON representation for API or storage */
+  public toJSON(): object {
+    return {
+      id: this.id,
+      title: this.title,
+      description: this.description,
+      subjectId: this.subject.getId(),
+      subjectName: this.subject.getName(),
+      teacherId: this.teacher.teacherId,
+      teacherName: this.teacher.getName(),
+      fileUrl: this.fileUrl,
+      materialType: this.materialType,
+      uploadDate: this.uploadDate.toISOString(),
+    }
+  }
 }

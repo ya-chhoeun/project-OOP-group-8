@@ -1,32 +1,22 @@
-import { Subject } from "../academics/Subject";
 export class Timetable {
-    private id: number;
-    private time: string;
-    private day: string;
-    private room: string;
-    private subject: Subject;
+  private id: number;
+  private time: string;
+  private day: string;
+  private room: string;
+  private subject: any;
 
-    constructor(id: number, time: string, day: string, room: string, subject: Subject) {
-        this.id = id;
-        this.time = time;
-        this.day = day;
-        this.room = room;
-        this.subject = subject;
-    }
-      public getSubject(): Subject {
-        return this.subject;
-    }
-    public getTime(): string {
-        return this.time;
-    }
+  constructor(id: number, time: string, day: string, room: string, subject: any) {
+    this.id = id;
+    this.time = time;
+    this.day = day;
+    this.room = room;
+    this.subject = subject;
+  }
 
-    public getDay(): string {
-        return this.day;
-    }
+  public getId(): number {
+    return this.id;
+  }
 
-    public getRoom(): string {
-        return this.room;
-    }
     public setTime(time: string): void {
         if (!this.isValidTime(time)) {
             throw new Error("Invalid time format. Use HH:MM AM/PM.");
@@ -57,18 +47,33 @@ export class Timetable {
     }
 
      // Check for conflict
-    public conflictsWith(other: Timetable): boolean {
-        return this.day === other.day &&
-               this.time.toLowerCase() === other.time.toLowerCase() &&
-               this.room.toLowerCase() === other.room.toLowerCase();
-    }
+   public equals(other: Timetable): boolean {
+    return this.id === other.id &&
+           this.time.toLowerCase() === other.time.toLowerCase() &&
+           this.day.toLowerCase() === other.day.toLowerCase() &&
+           this.room.toLowerCase() === other.room.toLowerCase() &&
+           this.subject.getName() === other.subject.getName();
+}
+
 
     // Method to get full details
     public toString(): string {
         return `Timetable [ID: ${this.id}, Day: ${this.day}, Time: ${this.time}, Room: ${this.room}]`;
     }
     
+    public getSubject(): any {
+        return this.subject;
+    }
+
+    public getDay(): string {
+        return this.day;
+    }
+
+    public getTime(): string {
+        return this.time;
+    }
+
+    public getRoom(): string {
+        return this.room;
+    }
 }
-
-
-

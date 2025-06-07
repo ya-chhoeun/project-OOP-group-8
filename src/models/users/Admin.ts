@@ -1,15 +1,13 @@
+
+
 import { Subject } from "../academics/Subject";
 import { Assignment } from "../academics/Assignment";
-import { User } from "./User";
+import { User, Role } from "./User";
 import { Teacher } from "./Teacher";
 import { Student } from "./Student";
 
-enum Role {
-  STUDENT = "student",
-  TEACHER = "teacher",
-  ADMIN = "admin",
-}
-class Admin extends User {
+
+export class Admin extends User {
   private adminId: number;
   private teacherAssignments: Map<number, Subject> = new Map();
   private studentEnrollments: Map<number, Set<Subject>> = new Map();
@@ -25,7 +23,7 @@ class Admin extends User {
       return;
     }
     this.teacherAssignments.set(teacher.getId(), subject);
-    teacher.addSubject(subject);
+    teacher.addSubject(subject); 
     console.log(`Assigned teacher ${teacher.getName()} to subject ${subject.getName()}`);
   }
 
@@ -47,17 +45,20 @@ class Admin extends User {
 }
 
 (() => {
-  const math = new Subject("S001", "Mathematics", "MATH101", "Basic Mathematics", 3);
-  const teacher = new Teacher(
-    2,
-    "Mr. John",
-    "john@example.com",
-    "pass123",
-    "010123456",
-    "No. 25, Phnom Penh",
-    2001,
-    "Mathematics"
-  );
+const math = new Subject("S001", "Mathematics", "MATH101", "Basic Mathematics", 3);
+
+
+ const teacher = new Teacher(
+  2,
+  "Mr. John",
+  "john@example.com",
+  "pass123",
+  "098888888",
+  "Phnom Penh",
+  1002,
+  "Mathematics"
+);
+
   const student = new Student(3, "Alice", "alice@example.com", Role.STUDENT, "pass456");
 
   const admin = new Admin(1, "Admin Jane", "admin@example.com", Role.ADMIN, "adminpass", 1001);
@@ -73,9 +74,9 @@ class Admin extends User {
   );
 
   // Actions
-  admin.assignTeacherToSubject(teacher, math);
-  teacher.addAssignment(assignment);
-  admin.enrollStudentInSubject(student, math);
+  admin.assignTeacherToSubject(teacher, math); 
+  teacher.addAssignment(assignment);           
+  admin.enrollStudentInSubject(student, math); 
 
   // Timestamp
   const currentDate = new Date("2025-06-03T20:42:00+07:00").toLocaleString("en-US", {
@@ -83,5 +84,5 @@ class Admin extends User {
   });
 
   console.log(`Current Date: ${currentDate}`);
-
+  
 })();

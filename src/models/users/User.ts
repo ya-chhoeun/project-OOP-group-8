@@ -1,86 +1,74 @@
 export enum Role {
-    STUDENT = "student",
-    TEACHER = "teacher",
-    ADMIN = "admin"
+  STUDENT = "STUDENT",
+  TEACHER = "TEACHER",
+  ADMIN = "ADMIN"
 }
 
-export abstract class User {
-    public id: number;
-    private name: string;
-    private email: string;
-    private role: Role;
-    public password: string;
-    private isLoggedIn: boolean = false;
-    private static existingUsers: User[] = [];
+export class User {
+  protected id: number;
+  protected name: string;
+  protected email: string;
+  protected password: string;
+  protected role: Role;
+  protected isLoggedIn: boolean;
 
-    constructor(id: number, name: string, email: string, role: Role, password: string) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.role = role;
-        this.password = password;
+  constructor(id: number, name: string, email: string, role: Role, password: string) {
+    this.id = id;
+    this.name = name;
+    this.email = email;
+    this.role = role;
+    this.password = password;
+    this.isLoggedIn = false;
+  }
+
+  public getId(): number {
+    return this.id;
+  }
+
+  public getName(): string {
+    return this.name;
+  }
+
+  public getEmail(): string {
+    return this.email;
+  }
+
+  public getRole(): Role {
+    return this.role;
+  }
+
+  public isAuthenticated(): boolean {
+    return this.isLoggedIn;
+  }
+
+  // Register a new user (simulated, in reality you'd save to a database)
+  public register(): { success: boolean; message: string } {
+    if (!this.email || !this.password) {
+      return { success: false, message: "Email and password are required for registration." };
     }
+    // Simulate registration by setting isLoggedIn to true (in reality, check for duplicates in DB)
+    this.isLoggedIn = true;
+    return { success: true, message: `User ${this.email} registered successfully as ${this.role}.` };
+  }
 
-    public getId(): number {
-        return this.id;
+  // Login user
+  public login(email: string, password: string): { success: boolean; message: string } {
+    if (this.isLoggedIn) {
+      return { success: false, message: `User ${this.email} is already logged in.` };
     }
-
-    public getEmail(): string {
-        return this.email;
+    if (this.email !== email || this.password !== password) {
+      return { success: false, message: "Invalid email or password." };
     }
+    this.isLoggedIn = true;
+    return { success: true, message: `User ${this.email} logged in successfully.` };
+  }
 
-    protected setLoggedIn(value: boolean): void {
-        this.isLoggedIn = value;
+  // Logout user
+  public logout(): { success: boolean; message: string } {
+    if (!this.isLoggedIn) {
+      return { success: false, message: `User ${this.email} is not logged in.` };
     }
-
-    public getName(): string {
-        return this.name;
-    }
-    public login(email: string, password: string): boolean {
-        if (this.email === email && this.password === password) {
-            console.log(`${this.name} logged in successfully.`);
-            return true;
-        } else {
-            console.log(`Login failed for ${this.name}.`);
-            return false;
-        }
-    }
-
-    public logout(): void {
-        console.log(`${this.name} logged out.`);
-        if (this.isLoggedIn) {
-            this.isLoggedIn = false;
-            console.log(`${this.name} logged out.`);
-        } else {
-            console.log(`${this.name} is not logged in.`);
-        }
-    }
-
-    public register(name: string, email: string, password: string, role: Role): User {
-        const userExists = User.existingUsers.some(user => user.getEmail() === email);
-
-        if (userExists) {
-            throw new Error(`${email} is already registered. Please log in.`);
-        }
-
-        const newUser = new RegisteredUser(Date.now(), name, email, role, password);
-        User.existingUsers.push(newUser);
-        newUser.setLoggedIn(true);
-        console.log(`${name} has been registered and logged in.`);
-        return newUser;
-    }
-
-    public displayInfo(): void {
-        console.log(`ID: ${this.id}, Name: ${this.name}, Role: ${this.role}`);
-    }
+    this.isLoggedIn = false;
+    return { success: true, message: `User ${this.email} logged out successfully.` };
+  }
 }
-
-class RegisteredUser extends User {
-    constructor(id: number, name: string, email: string, role: Role, password: string) {
-        super(id, name, email, role, password);
-    }
-}
-
-
-
-
