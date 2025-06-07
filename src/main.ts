@@ -12,6 +12,7 @@ import { Attendance } from './models/operations/Attendance';
 import { Fee } from './models/operations/Fee';
 import { Parents } from './models/operations/Parents';
 import { Role } from './models/users/User';
+import { Classroom } from './models/academics/Classroom';
 
 // Define the result structure type for better TypeScript support
 interface Result {
@@ -240,11 +241,25 @@ function main(): Result {
   result.admins.push(
     { id: admin.getId(), name: admin.getName(), isLoggedIn: admin.isAuthenticated() }
   );
-
   // Create Enrollments
-  const enrollment1 = new Enrollment("ENR001", student1, OOP);
-  const enrollment2 = new Enrollment("ENR002", student1, PL);
-  const enrollment3 = new Enrollment("ENR003", student2, OOP);
+  // Create actual Classroom instances for each subject:
+
+  const OOPClassroom = new Classroom(
+    "CR001",
+    "OOP Classroom",
+    5,
+    "40"
+  );
+  const PLClassroom = new Classroom(
+    "CR002",
+    "PL Classroom",
+    201,
+    "35"
+  );
+
+  const enrollment1 = new Enrollment("ENR001", student1, OOP, OOPClassroom);
+  const enrollment2 = new Enrollment("ENR002", student1, PL, PLClassroom);
+  const enrollment3 = new Enrollment("ENR003", student2, OOP, OOPClassroom);
 
   result.enrollments.push(
     { id: enrollment1.getId(), studentId: enrollment1.getStudent().getId(), subjectId: enrollment1.getSubject().getId() },
