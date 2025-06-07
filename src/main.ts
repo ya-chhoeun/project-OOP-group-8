@@ -140,7 +140,7 @@ function main(): Result {
     timestamp: currentDate
   });
 
-  const PLTeacherLogin = PLTeacher.login("michael.chen@school.edu", "wrongpassword");
+  const PLTeacherLogin = PLTeacher.login("yaa.chhoun@student.passerellesnumeriques.org", "wrongpassword");
   result.authEvents.push({
     action: "login",
     userId: PLTeacher.getId(),
@@ -160,9 +160,9 @@ function main(): Result {
   PLTeacher.addSubject(PL);
 
   // Create Students
-  const student1 = new Student(201, "Alice Smith", "alice.smith@student.edu", Role.STUDENT, "studentpass1");
-  const student2 = new Student(202, "Bob Wilson", "bob.wilson@student.edu", Role.STUDENT, "studentpass2");
-  const student3 = new Student(203, "Carol Davis", "carol.davis@student.edu", Role.STUDENT, "studentpass3");
+  const student1 = new Student(201, "sophy", "sophy.em@student.passerellesnumeriques.org", Role.STUDENT, "studentpass1");
+  const student2 = new Student(202, "yaa", "sophy.em@student.passerellesnumeriques.org", Role.STUDENT, "studentpass2");
+  const student3 = new Student(203, "reachna", "sophy.em@student.passerellesnumeriques.org", Role.STUDENT, "studentpass3");
 
   // Register Students
   const student1Register = student1.register();
