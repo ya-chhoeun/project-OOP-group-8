@@ -6,6 +6,7 @@ import { Subject } from './Subject';
 import { Teacher } from '../users/Teacher';
 
 
+
 export class Assignment {
   private id: number;
   private title: string;
@@ -35,30 +36,24 @@ export class Assignment {
     this.isPublished = false;
     this.students = [];
   }
-   public getSubject(): Subject {
-    return this.subject;
-  }
 
   publish(): void {
     this.isPublished = true;
   }
-  public getTitle(): string {
-    return this.title;
-  }
+  // Removed duplicate getTitle() method
   unpublish(): void {
     this.isPublished = false;
   }
   getGrade(): Grade | null {
   return this.grade;
 }
-public getDueDate(): Date {
-  return this.dueDate;
-}
+
 
   isOverdue(): boolean {
     const now = new Date();
     return now > this.dueDate;
   }
+
 
   updateDueDate(newDueDate: Date): void {
     if (newDueDate <= new Date()) {
@@ -67,22 +62,27 @@ public getDueDate(): Date {
     this.dueDate = newDueDate;
   }
 
+
   updateDescription(newDescription: string): void {
     this.description = newDescription;
   }
 
+
   getSummary(): string {
     return `${this.title} (Due: ${this.dueDate.toLocaleDateString()}) - Max Marks: ${this.maxMarks}`;
   }
-  public getId(): string {
+  public getIdAsString(): string {
     return this.id.toString(); // convert number id to string
 }
 
-  addStudent(student: Student): void {
+
+
+addStudent(student: Student): void {
     if (!this.students.find(s => s.getId() === student.getId())) {
       this.students.push(student);
     }
   }
+
 
   markSubmitted(): void {
     this.submitted = true;
@@ -98,8 +98,36 @@ public getDueDate(): Date {
     this.grade = new Grade(grade, percentage, comment);
   }
 
+
   hasStudentSubmitted(student: Student): boolean {
     return this.students.some(s => s.getId() === student.getId()) && this.submitted !== null;
   }
+
+  public getSubject(): Subject {
+    return this.subject
+
+  }
+
+  public getId(): number {
+    return this.id
+    
+  }
+  // public getAssignmentId(): string {
+  //   return this.assignment_id
+  // }
+
+  public getTitle(): string {
+    return this.title
+  }
+
+  public getDescription(): string {
+    return this.description
+  }
+
+  public getDueDate(): Date {
+    return this.dueDate
+  }
+
+  
 }
 
