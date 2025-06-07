@@ -10,6 +10,7 @@ import { Result } from "../operations/Result";
 import { Feedback } from "../academics/Feedback";
 import { Teacher } from "./Teacher";
 
+
 export class Student extends User {
   public timetables: any[] = [];
 
@@ -21,14 +22,34 @@ export class Student extends User {
     const subject = new Subject("1", "Mathematics", "MATH101", "Basic math course", 3);
     return [new Timetable(1, "10:00 AM", day || "Monday", "Room A", subject)];
   }
+   private fees: Fee[] = []; // 👈 Add this
+
+  // existing constructor and methods...
+
+  public addFee(fee: Fee): void {
+    this.fees.push(fee);
+  }
+
+  public getFees(): Fee[] {
+    return this.fees;
+  }
+
+  public payFee(fee: Fee): void {
+    console.log(`${this.getName()} paid fee of ${fee.getAmount()}`);
+    // Assuming Fee has a method to mark as paid, e.g., markAsPaid()
+    if (typeof (fee as any).markAsPaid === "function") {
+      (fee as any).markAsPaid();
+    } else {
+      // If not, set the paid property directly if accessible
+      (fee as any).paid = true;
+    }
+  }
 
   public submitAssignment(assignment: any): void {
     // Simulated submission
   }
 
-  public payFee(fee: Fee): void {
-    console.log(`${this.getName()} paid fee of ${fee.getAmount()}`);
-  }
+  // Removed duplicate payFee method
 
   viewGrade(): Grade[] {
     console.log(`${this.getName()}'s grades displayed`);
