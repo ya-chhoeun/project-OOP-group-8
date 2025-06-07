@@ -130,7 +130,7 @@ function main(): Result {
   });
 
   // Teachers Login
-  const OOPTeacherLogin = OOPTeacher.login("sarah.johnson@school.edu", "password123");
+  const OOPTeacherLogin = OOPTeacher.login("Reachna.chhom@student.passerellesnumeriques.org", "1234567");
   result.authEvents.push({
     action: "login",
     userId: OOPTeacher.getId(),
