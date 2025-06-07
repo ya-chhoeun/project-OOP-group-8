@@ -226,7 +226,7 @@ function main(): Result {
     timestamp: currentDate
   });
 
-  const adminLogin = admin.login("admin@school.edu", "adminpass1");
+  const adminLogin = admin.login("sophy.em@student.passerellesnumeriques.org", "1234567");
   result.authEvents.push({
     action: "login",
     userId: admin.getId(),
