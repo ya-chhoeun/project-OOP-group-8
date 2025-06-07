@@ -15,13 +15,22 @@ import { Classroom } from './models/academics/Classroom';
 import { Exam } from './models/academics/Exam';
 import { Result } from './models/operations/Result';
 
-// Utility function to format logs with timestamp and data
+// ANSI color codes
+const colors = {
+  reset: '\x1b[0m',
+  green: '\x1b[32m',
+  yellow: '\x1b[33m'
+};
+
+// Utility function to format logs with timestamp and data with colors
 function logWithTimestamp(message: string, data: any = null): void {
   const timestamp = new Date().toLocaleString("en-US", { timeZone: "Asia/Bangkok" });
+  const coloredTimestamp = `${colors.green}[${timestamp}]${colors.reset}`;
+  const coloredMessage = `${colors.yellow}${message}${colors.reset}`;
   if (data !== null) {
-    console.log(`[${timestamp}] ${message}\n${JSON.stringify(data, null, 2)}`);
+    console.log(`${coloredTimestamp} ${coloredMessage}\n${JSON.stringify(data, null, 2)}`);
   } else {
-    console.log(`[${timestamp}] ${message}`);
+    console.log(`${coloredTimestamp} ${coloredMessage}`);
   }
 }
 
@@ -77,7 +86,7 @@ function main(): void {
     const currentDate = new Date("2025-06-07T01:16:00+07:00").toISOString();
     logWithTimestamp(`Current date: ${currentDate}`);
 
-    // === Create Subjects ===
+// === Create Subjects ===
     const OOP = new Subject("OOP", "OOP", "OOP", "Advanced OOP Course", 4);
     const PL = new Subject("PL", "PL", "PL", "Introduction to PL", 3);
     const LOGIC = new Subject("LOGIC01", "LOGIC", "LOGIC01", "Basic LOGIC", 3);
@@ -87,7 +96,6 @@ function main(): void {
       { id: PL.getId(), name: PL.getName(), credits: PL.getCredits() },
       { id: LOGIC.getId(), name: LOGIC.getName(), credits: LOGIC.getCredits() }
     ]);
-
 
     // === Create Teachers ===
     const OOPTeacher = new Teacher(
@@ -156,7 +164,7 @@ function main(): void {
     result.enrollments.push(enrollment1, enrollment2, enrollment3);
     logWithTimestamp(`Enrolled ${student1.getName()}, ${student2.getName()} in ${OOP.getName()}, and ${student3.getName()} in ${PL.getName()}`);
 
-    // === Assignment Management ===
+// === Assignment Management ===
     const assignment1 = new Assignment(
       1,
       "OOP Project",
@@ -173,7 +181,6 @@ function main(): void {
     assignment1.publish();
     result.assignments.push(assignment1);
     logWithTimestamp(`Published assignment: ${assignment1.getSummary()}`);
-
 
     student1.submitAssignment(assignment1);
     assignment1.markSubmitted();
@@ -252,13 +259,13 @@ function main(): void {
       [`Passing Result ${index + 1}`]: res.getSummary()
     })));
 
-    // Calculate average grade for a student
+
+// Calculate average grade for a student
     const student1Results = result.results.filter(res => res.getStudentId() === student1.getId());
     const averageGrade = student1Results.length > 0
       ? student1Results.reduce((sum, res) => sum + res.getGrade(), 0) / student1Results.length
       : 0;
     logWithTimestamp(`Average grade for ${student1.getName()}: ${averageGrade.toFixed(2)}`);
-
 
     // Find top student
     const topStudentMessage = findTopStudent(result.results, result.students);
