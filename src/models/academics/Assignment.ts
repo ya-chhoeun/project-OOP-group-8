@@ -67,9 +67,11 @@ public getDueDate(): Date {
     this.dueDate = newDueDate;
   }
 
+
   updateDescription(newDescription: string): void {
     this.description = newDescription;
   }
+
 
   getSummary(): string {
     return `${this.title} (Due: ${this.dueDate.toLocaleDateString()}) - Max Marks: ${this.maxMarks}`;
@@ -78,11 +80,13 @@ public getDueDate(): Date {
     return this.id.toString(); // convert number id to string
 }
 
+
   addStudent(student: Student): void {
     if (!this.students.find(s => s.getId() === student.getId())) {
       this.students.push(student);
     }
   }
+
 
   markSubmitted(): void {
     this.submitted = true;
@@ -98,8 +102,10 @@ public getDueDate(): Date {
     this.grade = new Grade(grade, percentage, comment);
   }
 
+
   hasStudentSubmitted(student: Student): boolean {
     return this.students.some(s => s.getId() === student.getId()) && this.submitted !== null;
   }
+  
 }
 
