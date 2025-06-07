@@ -11,4 +11,19 @@ export class Exam {
         this.maxScore = maxScore;
     }
 
+    public getExamDate(): Date {
+        return this.examDate;
+    }
+
+    public getResult(): number {
+        return this.result;
+    }
+
+    public getRoom(): string {
+        return this.room;
+    }
+
+    public getMaxScore(): number {
+        return this.maxScore;
+    }
 }
