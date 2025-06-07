@@ -19,8 +19,8 @@ interface Result {
   students: { id: number; name: string; isLoggedIn: boolean }[];
   admins: { id: number; name: string; isLoggedIn: boolean }[];
   enrollments: { id: string; studentId: number; subjectId: string }[];
-  assignments: { id: number; title: string; dueDate: string }[];
-  grades: { id: string | null; assignmentId: number; studentId: number; score: number | null }[];
+  assignments: { id: string; title: string; dueDate: string }[];
+  grades: { id: string | null; assignmentId: string; studentId: number; score: number | null }[];
   timetables: { id: number; subjectId: string; day: string; time: string; room: string }[];
   studyMaterials: {
     id: string;
@@ -299,8 +299,8 @@ function main(): Result {
   const OOPGrade = OOPAssignment.getGrade();
   const PLGrade = PLAssignment.getGrade();
   result.grades.push(
-    { id: OOPGrade?.getId() || null, assignmentId: OOPAssignment.getId(), studentId: student1.getId(), score: OOPGrade?.getScore() || null },
-    { id: PLGrade?.getId() || null, assignmentId: PLAssignment.getId(), studentId: student1.getId(), score: PLGrade?.getScore() || null }
+    { id: OOPGrade?.getId() != null ? String(OOPGrade.getId()) : null, assignmentId: OOPAssignment.getId(), studentId: student1.getId(), score: OOPGrade?.getScore() || null },
+    { id: PLGrade?.getId() != null ? String(PLGrade.getId()) : null, assignmentId: PLAssignment.getId(), studentId: student1.getId(), score: PLGrade?.getScore() || null }
   );
 
   // Create Timetable
@@ -433,12 +433,12 @@ function main(): Result {
   // Assignment status
   result.assignmentStatus = {
     OOPAssignment: {
-      id: OOPAssignment.getId(),
+      id: Number(OOPAssignment.getId()),
       overdue: OOPAssignment.isOverdue(),
       student1Submitted: OOPAssignment.hasStudentSubmitted(student1)
     },
     PLAssignment: {
-      id: PLAssignment.getId(),
+      id: Number(PLAssignment.getId()),
       overdue: PLAssignment.isOverdue(),
       student1Submitted: PLAssignment.hasStudentSubmitted(student1)
     }
