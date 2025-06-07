@@ -3,6 +3,7 @@ import { Teacher } from './models/users/Teacher';
 import { Admin } from './models/users/Admin';
 import { Subject } from './models/academics/Subject';
 import { Assignment } from './models/academics/Assignment';
+
 import { Timetable } from './models/academics/Timetable';
 import { Enrollment } from './models/academics/Enrollment';
 import { StudyMaterial } from './models/academics/StudyMateria'; // Fixed typo
@@ -19,8 +20,8 @@ interface Result {
   students: { id: number; name: string; isLoggedIn: boolean }[];
   admins: { id: number; name: string; isLoggedIn: boolean }[];
   enrollments: { id: string; studentId: number; subjectId: string }[];
-  assignments: { id: number; title: string; dueDate: string }[];
-  grades: { id: string | null; assignmentId: number; studentId: number; score: number | null }[];
+  assignments: { id: string; title: string; dueDate: string }[];
+  grades: { id: string | null; assignmentId: string; studentId: number; score: number | null }[];
   timetables: { id: number; subjectId: string; day: string; time: string; room: string }[];
   studyMaterials: {
     id: string;
@@ -213,7 +214,7 @@ function main(): Result {
   );
 
   // Create Admin
-  const admin = new Admin(301, "Admin Phy", "sophy.em@student.passerellesnumeriques.org", "1234567");
+  const admin = new Admin(301, "Admin Phy", "sophy.em@student.passerellesnumeriques.org", Role.ADMIN, "1234567", 3001);
 
   // Register and Login Admin
   const adminRegister = admin.register();
@@ -273,8 +274,8 @@ function main(): Result {
   );
 
   result.assignments.push(
-    { id: OOPAssignment.getId(), title: OOPAssignment.getTitle(), dueDate: OOPAssignment.getDueDate().toDateString() },
-    { id: PLAssignment.getId(), title: PLAssignment.getTitle(), dueDate: PLAssignment.getDueDate().toDateString() }
+    { id: String(OOPAssignment.getId()), title: OOPAssignment.getTitle(), dueDate: OOPAssignment.getDueDate().toDateString() },
+    { id: String(PLAssignment.getId()), title: PLAssignment.getTitle(), dueDate: PLAssignment.getDueDate().toDateString() }
   );
 
   // Publish assignments
@@ -299,8 +300,8 @@ function main(): Result {
   const OOPGrade = OOPAssignment.getGrade();
   const PLGrade = PLAssignment.getGrade();
   result.grades.push(
-    { id: OOPGrade?.getId() || null, assignmentId: OOPAssignment.getId(), studentId: student1.getId(), score: OOPGrade?.getScore() || null },
-    { id: PLGrade?.getId() || null, assignmentId: PLAssignment.getId(), studentId: student1.getId(), score: PLGrade?.getScore() || null }
+    { id: OOPGrade?.getId() != null ? String(OOPGrade.getId()) : null, assignmentId: String(OOPAssignment.getId()), studentId: student1.getId(), score: OOPGrade?.getScore() || null },
+    { id: PLGrade?.getId() != null ? String(PLGrade.getId()) : null, assignmentId: String(PLAssignment.getId()), studentId: student1.getId(), score: PLGrade?.getScore() || null }
   );
 
   // Create Timetable
@@ -420,8 +421,8 @@ function main(): Result {
 
   // Student academic records
   result.studentRecords[student1.getId()] = {
-    grades: student1.viewGrade().map(grade => ({ id: grade.getId(), score: grade.getScore() })),
-    results: student1.viewResult().map(result => ({ id: result.getId(), grade: result.getGrade() })),
+    grades: student1.viewGrade().map(grade => ({ id: String(grade.getId()), score: grade.getScore() })),
+    results: student1.viewResult().map(result => ({ id: String(result.getId()), grade: String(result.getGrade()) })),
     timetable: student1.viewTimetable("Monday").map(schedule => ({
       id: schedule.getId(),
       subjectId: schedule.getSubject().getId(),
@@ -433,12 +434,12 @@ function main(): Result {
   // Assignment status
   result.assignmentStatus = {
     OOPAssignment: {
-      id: OOPAssignment.getId(),
+      id: Number(OOPAssignment.getId()),
       overdue: OOPAssignment.isOverdue(),
       student1Submitted: OOPAssignment.hasStudentSubmitted(student1)
     },
     PLAssignment: {
-      id: PLAssignment.getId(),
+      id: Number(PLAssignment.getId()),
       overdue: PLAssignment.isOverdue(),
       student1Submitted: PLAssignment.hasStudentSubmitted(student1)
     }

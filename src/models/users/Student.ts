@@ -1,4 +1,14 @@
-import { User, Role } from './User';
+
+import { User, Role } from "./User";
+import { Subject } from "../academics/Subject";
+import { Timetable } from "../academics/Timetable";
+import { Assignment } from "../academics/Assignment";
+import { Grade } from "../academics/Grade";
+import { Exam } from "../academics/Exam";
+import { Fee } from "../operations/Fee";
+import { Result } from "../operations/Result";
+import { Feedback } from "../academics/Feedback";
+import { Teacher } from "./Teacher";
 
 export class Student extends User {
   public timetables: any[] = [];
@@ -7,24 +17,53 @@ export class Student extends User {
     super(id, name, email, role, password);
   }
 
-  // Placeholder methods from original main.ts
+  viewTimetable(day?: string): Timetable[] {
+    const subject = new Subject("1", "Mathematics", "MATH101", "Basic math course", 3);
+    return [new Timetable(1, "10:00 AM", day || "Monday", "Room A", subject)];
+  }
+
   public submitAssignment(assignment: any): void {
     // Simulated submission
   }
 
-  public payFee(fee: any): void {
-    fee.setStatus("paid");
+  public payFee(fee: Fee): void {
+    console.log(`${this.getName()} paid fee of ${fee.getAmount()}`);
   }
 
-  public viewGrade(): any[] {
-    return [{ getId: () => "grade1", getScore: () => 85 }, { getId: () => "grade2", getScore: () => 90 }];
+  viewGrade(): Grade[] {
+    console.log(`${this.getName()}'s grades displayed`);
+    return [
+      new Grade(1, 95, "Excellent performance"),
+      new Grade(2, 88, "Good understanding of concepts")
+    ];
   }
 
-  public viewResult(): any[] {
-    return [{ getId: () => "result1", getGrade: () => "A" }];
+  viewExamSchedule(): Exam[] {
+    console.log(`${this.getName()}'s exam schedule displayed`);
+    return [
+      new Exam(new Date("2023-12-01"), 0, "Room A", 100),
+      new Exam(new Date("2023-12-05"), 0, "Room B", 100)
+    ];
   }
 
-  public viewTimetable(day: string): any[] {
-    return this.timetables || [];
+  giveFeedback(subject: Subject, teacher: Teacher, rating: number, comment: string): Feedback {
+    const feedback = new Feedback(
+      `${this.getId()}-${subject.getId()}-${teacher.getId()}`,
+      this,
+      teacher,
+      subject,
+      rating,
+      comment
+    );
+    console.log(`Feedback submitted: ${feedback.toString()}`);
+    return feedback;
+  }
+
+  viewResult(): Result[] {
+    console.log(`${this.getName()}'s results displayed`);
+    return [
+      new Result(1, this.getId(), 101, 90, new Date("2025-05-01")),
+      new Result(2, this.getId(), 102, 85, new Date("2025-05-02"))
+    ];
   }
 }

@@ -1,56 +1,133 @@
+
+// src/models/Assignment.ts
+import { Student } from '../users/Student';
+import { Grade } from './Grade';
+import { Subject } from './Subject';
+import { Teacher } from '../users/Teacher';
+
+
+
 export class Assignment {
   private id: number;
   private title: string;
+  private description: string;
   private dueDate: Date;
   private students: any[];
   private grade: any;
   private submitted: boolean;
+  private maxMarks: number;
+  private subject: any;
+  private teacher: any;
+  private isPublished: boolean;
 
   constructor(id: number, title: string, description: string, dueDate: Date, maxScore: number, subject: any, teacher: any) {
+
     this.id = id;
     this.title = title;
+    this.description = description;
+
     this.dueDate = dueDate;
-    this.students = [];
+
+    this.maxMarks = maxScore;
+    this.subject = subject;
+    this.teacher = teacher;
     this.submitted = false;
+    this.grade = null;
+    this.isPublished = false;
+    this.students = [];
   }
 
-  public getId(): number {
-    return this.id;
+  publish(): void {
+    this.isPublished = true;
+  }
+  // Removed duplicate getTitle() method
+  unpublish(): void {
+    this.isPublished = false;
+  }
+  getGrade(): Grade | null {
+  return this.grade;
+}
+
+
+  isOverdue(): boolean {
+    const now = new Date();
+    return now > this.dueDate;
   }
 
-  public getTitle(): string {
-    return this.title;
+
+  updateDueDate(newDueDate: Date): void {
+    if (newDueDate <= new Date()) {
+      throw new Error("Due date must be in the future.");
+    }
+    this.dueDate = newDueDate;
   }
 
-  public getDueDate(): Date {
-    return this.dueDate;
+
+  updateDescription(newDescription: string): void {
+    this.description = newDescription;
   }
 
-  public publish(): void {
-    // Simulated publish
+
+  getSummary(): string {
+    return `${this.title} (Due: ${this.dueDate.toLocaleDateString()}) - Max Marks: ${this.maxMarks}`;
+  }
+  public getIdAsString(): string {
+    return this.id.toString(); // convert number id to string
+}
+
+
+
+addStudent(student: Student): void {
+    if (!this.students.find(s => s.getId() === student.getId())) {
+      this.students.push(student);
+    }
   }
 
-  public addStudent(student: any): void {
-    this.students.push(student);
-  }
 
-  public markSubmitted(): void {
+  markSubmitted(): void {
     this.submitted = true;
   }
 
-  public assignGrade(score: number, maxScore: number): void {
-    this.grade = { getId: () => `grade${this.id}`, getScore: () => score };
+  assignGrade(grade: number, percentage: number, comment: string = ""): void {
+    if (grade < 0 || grade > this.maxMarks) {
+      throw new Error(`Grade must be between 0 and ${this.maxMarks}.`);
+    }
+    if (percentage < 0 || percentage > 100) {
+      throw new Error("Percentage must be between 0 and 100.");
+    }
+    this.grade = new Grade(grade, percentage, comment);
   }
 
-  public getGrade(): any {
-    return this.grade;
+
+  hasStudentSubmitted(student: Student): boolean {
+    return this.students.some(s => s.getId() === student.getId()) && this.submitted !== null;
   }
 
-  public isOverdue(): boolean {
-    return new Date() > this.dueDate;
+  public getSubject(): Subject {
+    return this.subject
+
   }
 
-  public hasStudentSubmitted(student: any): boolean {
-    return this.submitted;
+  public getId(): number {
+    return this.id
+    
   }
+  // public getAssignmentId(): string {
+  //   return this.assignment_id
+  // }
+
+  public getTitle(): string {
+    return this.title
+  }
+
+  public getDescription(): string {
+    return this.description
+  }
+
+  public getDueDate(): Date {
+    return this.dueDate
+  }
+
+  
 }
+
