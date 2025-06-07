@@ -1,22 +1,12 @@
 export class Subject {
   private id: string;
-  private subject_name: string;
-  private subject_code: string;
-  private description: string;
-  private credits: number; 
+  private name: string;
+  private credits: number;
 
-  constructor(
-    subject_id: string,
-    subject_name: string,
-    subject_code: string,
-    description: string,
-    credits: number
-  ) {
-    this.id = subject_id;
-    this.subject_name = subject_name;
-    this.subject_code = subject_code;
-    this.description = description;
-    this.credits = credits; 
+  constructor(id: string, name: string, code: string, description: string, credits: number) {
+    this.id = id;
+    this.name = name;
+    this.credits = credits;
   }
 
   public getId(): string {
@@ -24,7 +14,7 @@ export class Subject {
   }
 
   public getName(): string {
-    return this.subject_name;
+    return this.name;
   }
 
   public getCredits(): number {

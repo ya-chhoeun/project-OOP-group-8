@@ -1,64 +1,30 @@
-import { User } from "./User";
-import { Subject } from "../academics/Subject";
-import { Timetable } from "../academics/Timetable";
-import { Assignment } from "../academics/Assignment";
-import { Grade } from "../academics/Grade";
-import { Exam } from "../academics/Exam";
-import { Fee} from "../operations/Fee";
-import { Result } from "../operations/Result";
-//     
+import { User, Role } from './User';
 
-enum Role {
-  STUDENT = "student",
-  TEACHER = "teacher",
-  ADMIN = "admin"
-}
 export class Student extends User {
-  private studentId: number;
+  public timetables: any[] = [];
 
   constructor(id: number, name: string, email: string, role: Role, password: string) {
     super(id, name, email, role, password);
-    this.studentId = id;
   }
 
-  viewTimetable(day?: string): Timetable[] {
-  const subject = new Subject("1","Mathematics","MATH101","Basic math course",3);
-  return [new Timetable(1, "10:00 AM", day || "Monday", "Room A", subject)];
-}
-
-
-  submitAssignment(assignment: Assignment): Assignment {
-    console.log(`Assignment submitted by ${this.getName()}`);
-    return assignment;
+  // Placeholder methods from original main.ts
+  public submitAssignment(assignment: any): void {
+    // Simulated submission
   }
 
-  viewGrade(): Grade[] {
-    console.log(`${this.getName()}'s grades displayed`);
-   return [
-    new Grade(1, 95, "Excellent performance"),
-    new Grade(2, 88, "Good understanding of concepts")
-  ];
+  public payFee(fee: any): void {
+    fee.setStatus("paid");
   }
 
-  viewExamSchedule(): Exam[] {
-  console.log(`${this.getName()}'s exam schedule displayed`);
-  return [
-    new Exam(new Date("2023-12-01"), 0, "Room A", 100),
-    new Exam(new Date("2023-12-05"), 0, "Room B", 100)
-  ];
-}
+  public viewGrade(): any[] {
+    return [{ getId: () => "grade1", getScore: () => 85 }, { getId: () => "grade2", getScore: () => 90 }];
+  }
 
-  giveFeedback(subject: Subject, teacher: User): void {
-    console.log(`Feedback given by ${this.getName()} for ${subject.getName()} taught by ${teacher.getName()}`); 
+  public viewResult(): any[] {
+    return [{ getId: () => "result1", getGrade: () => "A" }];
   }
-  payFee(fee: Fee): void {
-     console.log(`${this.getName()} paid fee of ${fee.getAmount()}`);
-  }
-  viewResult(): Result[] {
-    console.log(`${this.getName()}'s results displayed`);
-    return [
-    new Result(1, this.getId(), 101, 90, new Date('2025-05-01')),
-    new Result(2, this.getId(), 102, 85, new Date('2025-05-02'))
-  ];
+
+  public viewTimetable(day: string): any[] {
+    return this.timetables || [];
   }
 }

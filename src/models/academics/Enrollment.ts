@@ -1,42 +1,23 @@
-import { Student } from "../users/Student"
-import { Subject } from "./Subject"
-
 export class Enrollment {
-  private id: string
-  private student: Student
-  private subject: Subject
-  private enrollmentDate: Date
-  private status: "active" | "inactive" | "completed"
+  private id: string;
+  private student: any;
+  private subject: any;
 
-  constructor(id: string, student: Student, subject: Subject) {
-    this.id = id
-    this.student = student
-    this.subject = subject
-    this.enrollmentDate = new Date()
-    this.status = "active"
+  constructor(id: string, student: any, subject: any) {
+    this.id = id;
+    this.student = student;
+    this.subject = subject;
   }
 
   public getId(): string {
-    return this.id
+    return this.id;
   }
 
-  public getStudent(): Student {
-    return this.student
+  public getStudent(): any {
+    return this.student;
   }
 
-  public getSubject(): Subject {
-    return this.subject
-  }
-
-  public getEnrollmentDate(): Date {
-    return this.enrollmentDate
-  }
-
-  public getStatus(): string {
-    return this.status
-  }
-
-  public setStatus(status: "active" | "inactive" | "completed"): void {
-    this.status = status
+  public getSubject(): any {
+    return this.subject;
   }
 }
