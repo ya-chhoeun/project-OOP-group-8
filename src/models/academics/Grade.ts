@@ -1,7 +1,7 @@
-import { Exam } from "../academics/Exam";
-import { Assignment } from "../academics/Assignment";
 import { Student } from "../users/Student";
-
+import { Exam } from "./Exam";
+import { Assignment } from "./Assignment";
+// src/models/academics/Grade.ts
 export interface Grade {
     getId(): number;
     getScore(): number;
@@ -38,7 +38,6 @@ export class Grade implements Grade {
         this.assignment = assignment || null;
     }
 
-    // Getters
     getId(): number {
         return this.id;
     }
@@ -63,7 +62,6 @@ export class Grade implements Grade {
         return this.assignment;
     }
 
-    // Setters
     setScore(score: number): void {
         if (score < 0 || !Number.isFinite(score)) {
             throw new Error("Invalid score: must be a non-negative number");
@@ -71,7 +69,6 @@ export class Grade implements Grade {
         if (this.exam && score > this.exam.getMaxScore()) {
             throw new Error(`Score exceeds exam max score of ${this.exam.getMaxScore()}`);
         }
-        // Removed assignment validation since we cannot access getMaxMarks() without modifying Assignment
         this.score = score;
     }
 
@@ -94,3 +91,4 @@ export class Grade implements Grade {
         this.assignment = assignment;
     }
 }
+
