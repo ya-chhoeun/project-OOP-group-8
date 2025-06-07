@@ -13,145 +13,98 @@ import { Fee } from './models/operations/Fee';
 import { Parents } from './models/operations/Parents';
 import { Role } from './models/users/User';
 import { Classroom } from './models/academics/Classroom';
-import { Exam } from './models/academics/Exam';
-import { Result } from './models/operations/Result';
 
-// Utility function to format logs with timestamp
-function logWithTimestamp(message: string): void {
-  const timestamp = new Date().toLocaleString("en-US", { timeZone: "Asia/Bangkok" });
-  console.log(`[${timestamp}] ${message}`);
-}
+// Define the result structure type for better TypeScript support
+function main() {
+  const result = {
+    subjects: [],
+    teachers: [],
+    students: [],
+    admins: [],
+    enrollments: [],
+    assignments: [],
+    grades: [],
+    timetables: [],
+    studyMaterials: [],
+    feedback: [],
+    attendanceRecords: [],
+    fees: [],
+    parents: [],
+    authEvents: [],
+    studentRecords: {},
+    assignmentStatus: {}
+  };
 
-function main(): void {
-  try {
-    logWithTimestamp("Starting School Management System Demo");
+  
+  const currentDate = new Date("2025-06-07T01:16:00+07:00").toISOString();
 
-    // === Initialize Users ===
-    const admin = new Admin(1, "Admin Jane", "admin@example.com", Role.ADMIN, "adminpass", 1001);
-    logWithTimestamp(admin.register().message);
+  // Create Subjects
+  const OOP = new Subject("OOP", "OOP", "OOP", "Advanced OOP Course", 4);
+  const PL = new Subject("PL", "PL", "PL", "Introduction to PL", 3);
+  const LOGIC = new Subject("LOGIC01", "LOGIC", "LOGIC01", "Basic LOGIC", 3);
 
-    const teacher = new Teacher(
-      2,
-      "Mr. John",
-      "john@example.com",
-      "pass123",
-      "098888888",
-      "Phnom Penh",
-      1002,
-      "Mathematics"
-    );
-    logWithTimestamp(teacher.register().message);
+  console.log([
+    { id: OOP.getId(), name: OOP.getName(), credits: OOP.getCredits() },
+    { id: PL.getId(), name: PL.getName(), credits: PL.getCredits() },
+    { id: LOGIC.getId(), name: LOGIC.getName(), credits: LOGIC.getCredits() }
+  ]);
 
-    const student1 = new Student(3, "Alice", "alice@example.com", Role.STUDENT, "pass456");
-    const student2 = new Student(4, "Bob", "bob@example.com", Role.STUDENT, "pass789");
-    logWithTimestamp(student1.register().message);
-    logWithTimestamp(student2.register().message);
+  // Create Teachers
+  const OOPTeacher = new Teacher(
+    101,
+    "Mr. Sophy Em",
+    "sophy.em@student.passerellesnumeriques.org",
+    "1234567",
+    "+885-967-841-659",
+    "#371 2004 St, Phnom Penh",
+    1001,
+    "OOPematics"
+  );
 
-    const parent = new Parents("P001", "Mary Smith", "mary@example.com", "099999999", "Phnom Penh", "Mother");
-    parent.addStudent(student1);
-    logWithTimestamp(`Parent ${parent.getName()} added student ${student1.getName()}`);
+  const PLTeacher = new Teacher(
+    102,
+    "Yaa chhoun",
+    "yaa.chhoun@student.passerellesnumeriques.org",
+    "password456",
+    "+855-123-456-789",
+    "456 Science Ave, Education City",
+    1002,
+    "PL"
+  );
 
-    // === Initialize Academic Entities ===
-    const math = new Subject("S001", "Mathematics", "MATH101", "Basic Mathematics", 3);
-    const physics = new Subject("S002", "Physics", "PHY101", "Introduction to Physics", 4);
-    logWithTimestamp(`Created subjects: ${math.getName()}, ${physics.getName()}`);
+  console.log([
+    { id: OOPTeacher.getId(), name: OOPTeacher.getName(), specialization: OOPTeacher.specialization, teacherId: OOPTeacher.teacherId },
+    { id: PLTeacher.getId(), name: PLTeacher.getName(), specialization: PLTeacher.specialization, teacherId: PLTeacher.teacherId }
+  ]);
 
-    const classroom = new Classroom("C001", "Room A101", 30, "Building A");
-    classroom.addSubject(math);
-    classroom.addSubject(physics);
-    logWithTimestamp(`Created classroom ${classroom.getRoomNumber()} with capacity ${classroom.getCapacity()}`);
+  // Create Students
+  const student1 = new Student(201, "sophy", "sophy.em@student.passerellesnumeriques.org", Role.STUDENT, "studentpass1");
+  const student2 = new Student(202, "yaa", "sophy.em@student.passerellesnumeriques.org", Role.STUDENT, "studentpass2");
+  const student3 = new Student(203, "reachna", "sophy.em@student.passerellesnumeriques.org", Role.STUDENT, "studentpass3");
 
-    // === Admin Actions ===
-    admin.assignTeacherToSubject(teacher, math);
-    admin.assignTeacherToSubject(teacher, physics);
-    logWithTimestamp(`Teacher ${teacher.getName()} assigned to ${math.getName()} and ${physics.getName()}`);
+  console.log([
+    { id: student1.getId(), name: student1.getName(), email: student1.getEmail() },
+    { id: student2.getId(), name: student2.getName(), email: student2.getEmail() },
+    { id: student3.getId(), name: student3.getName(), email: student3.getEmail() }
+  ]);
 
-    // === Enroll Students ===
-    const enrollment1 = new Enrollment("E001", student1, math, classroom);
-    const enrollment2 = new Enrollment("E002", student2, math, classroom);
-    logWithTimestamp(`Enrolled ${student1.getName()} and ${student2.getName()} in ${math.getName()}`);
+  // Create Admin
+  const admin = new Admin(301, "Admin Phy", "sophy.em@student.passerellesnumeriques.org", Role.ADMIN, "1234567", 3001);
 
-    // === Assignment Management ===
-    const assignment1 = new Assignment(
-      1,
-      "Math Homework",
-      "Complete exercises 1-10",
-      new Date("2025-06-10"),
-      100,
-      math,
-      teacher
-    );
-    teacher.addAssignment(assignment1);
-    math.createAssignment(assignment1);
-    assignment1.addStudent(student1);
-    assignment1.addStudent(student2);
-    assignment1.publish();
-    logWithTimestamp(`Published assignment: ${assignment1.getSummary()}`);
+  console.log([{
+    id: admin.getId(),
+    name: admin.getName(),
+    adminId: admin.getAdminId()
+  }]);
 
-    student1.submitAssignment(assignment1);
-    assignment1.markSubmitted();
-    assignment1.assignGrade(85, 85, "Good work, but check question 5.");
-    logWithTimestamp(`Assigned grade ${assignment1.getGrade()?.getScore()} to ${student1.getName()}`);
+  // Create Classrooms
+  const OOPClassroom = new Classroom("CR001", "OOP Classroom", 5, "40");
+  const PLClassroom = new Classroom("CR002", "PL Classroom", 201, "35");
 
-    teacher.viewStudentGrade(student1, assignment1);
-
-    // === Study Material Management ===
-    const studyMaterial = new StudyMaterial(
-      "M001",
-      "Math Chapter 1 Notes",
-      "Notes on algebra basics",
-      math,
-      teacher,
-      "http://example.com/math-notes.pdf",
-      "pdf"
-    );
-    teacher.uploadMaterial(math, studyMaterial);
-    math.addStudyMaterial(studyMaterial);
-    logWithTimestamp(`Uploaded study material: ${studyMaterial.getSummary()}`);
-
-    // === Timetable Management ===
-    const timetable = new Timetable(1, "10:00 AM", "Monday", "Room A101", math);
-    math.addTimetable(timetable);
-    logWithTimestamp(`Added timetable: ${timetable.toString()}`);
-
-    // === Feedback Submission ===
-    const feedback = student1.giveFeedback(math, teacher, 4, "Great teaching style!");
-    math.addFeedback(feedback);
-    logWithTimestamp(`Feedback submitted: ${feedback.toString()}`);
-    logWithTimestamp(`Average rating for ${math.getName()}: ${math.getAverageRating()}`);
-
-    // === Fee Management ===
-    const fee1 = new Fee("F001", 200, new Date("2025-06-15"), math, student1, parent);
-    student1.addFee(fee1);
-    math.addFee(fee1);
-    logWithTimestamp(`Created fee: ${fee1.toString()}`);
-
-    parent.viewChildrenFees();
-    parent.payChildFee(student1.getId(), Number(fee1.getId()));
-    logWithTimestamp(`Fee status for ${student1.getName()}: ${fee1.getStatus()}`);
-
-    // === Attendance Tracking ===
-    Attendance.mark(student1, new Date("2025-06-03"), "Present", math, "Attended full session");
-    const attendanceRecords = Attendance.getAttendanceForStudent(student1);
-    logWithTimestamp(`Attendance for ${student1.getName()}: ${attendanceRecords[0].getStatus()}`);
-
-    // === Exam and Result Management ===
-    const exam = new Exam(new Date("2025-06-20"), 0, "Room A101", 100);
-    exam.addStudent(student1);
-    const result = new Result(1, student1.getId(), 1, 90, new Date("2025-06-20"));
-    logWithTimestamp(`Exam result: ${result.getSummary()}`);
-
-    // === Display Student Results ===
-    const results = student1.viewResult();
-    results.forEach((res) => logWithTimestamp(res.getSummary()));
-
-    // === Final Timestamp ===
-    logWithTimestamp("School Management System Demo Completed");
-
-  } catch (error: any) {
-    logWithTimestamp(`Error occurred: ${error.message}`);
+    console.log([
+      { id: OOPClassroom.getId(), roomNumber: OOPClassroom.getRoomNumber(), capacity: OOPClassroom.getCapacity(), location: OOPClassroom.getLocation() },
+      { id: PLClassroom.getId(), roomNumber: PLClassroom.getRoomNumber(), capacity: PLClassroom.getCapacity(), location: PLClassroom.getLocation() }
+    ]);
   }
-}
-
-// Execute the main function
-main();
+  
+  main();
