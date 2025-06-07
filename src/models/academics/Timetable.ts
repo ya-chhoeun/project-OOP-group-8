@@ -57,11 +57,14 @@ export class Timetable {
     }
 
      // Check for conflict
-    public conflictsWith(other: Timetable): boolean {
-        return this.day === other.day &&
-               this.time.toLowerCase() === other.time.toLowerCase() &&
-               this.room.toLowerCase() === other.room.toLowerCase();
-    }
+   public equals(other: Timetable): boolean {
+    return this.id === other.id &&
+           this.time.toLowerCase() === other.time.toLowerCase() &&
+           this.day.toLowerCase() === other.day.toLowerCase() &&
+           this.room.toLowerCase() === other.room.toLowerCase() &&
+           this.subject.getName() === other.subject.getName();
+}
+
 
     // Method to get full details
     public toString(): string {
