@@ -366,7 +366,7 @@ function main(): Result {
 
   // Create Feedback
   const feedback = new Feedback(
-    "FB001",
+    "OOP01",
     student1,
     OOPTeacher,
     OOP,
@@ -387,9 +387,9 @@ function main(): Result {
   // Create Parents
   const parent1 = new Parents(
     "PAR001",
-    "John Smith",
-    "john.smith@email.com",
-    "+1-555-0201",
+    "sophy em",
+    "sophy.em@student.passerellesnumeriques.org",
+    "+855-123-456-789",
     "789 Family Lane, Education City",
     "father"
   );
