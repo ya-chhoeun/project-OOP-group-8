@@ -86,7 +86,7 @@ function main(): Result {
   );
 
   // Create Teachers
-  const mathTeacher = new Teacher(
+  const OOPTeacher = new Teacher(
     101,
     "Dr. Sarah Johnson",
     "sarah.johnson@school.edu",
@@ -94,7 +94,7 @@ function main(): Result {
     "+1-555-0101",
     "123 Academic St, Education City",
     1001,
-    "Mathematics"
+    "OOPematics"
   );
 
   const PLTeacher = new Teacher(
@@ -109,13 +109,13 @@ function main(): Result {
   );
 
   // Register Teachers
-  const mathTeacherRegister = mathTeacher.register();
+  const OOPTeacherRegister = OOPTeacher.register();
   result.authEvents.push({
     action: "register",
-    userId: mathTeacher.getId(),
-    role: mathTeacher.getRole(),
-    success: mathTeacherRegister.success,
-    message: mathTeacherRegister.message,
+    userId: OOPTeacher.getId(),
+    role: OOPTeacher.getRole(),
+    success: OOPTeacherRegister.success,
+    message: OOPTeacherRegister.message,
     timestamp: currentDate
   });
 
@@ -130,13 +130,13 @@ function main(): Result {
   });
 
   // Teachers Login
-  const mathTeacherLogin = mathTeacher.login("sarah.johnson@school.edu", "password123");
+  const OOPTeacherLogin = OOPTeacher.login("sarah.johnson@school.edu", "password123");
   result.authEvents.push({
     action: "login",
-    userId: mathTeacher.getId(),
-    role: mathTeacher.getRole(),
-    success: mathTeacherLogin.success,
-    message: mathTeacherLogin.message,
+    userId: OOPTeacher.getId(),
+    role: OOPTeacher.getRole(),
+    success: OOPTeacherLogin.success,
+    message: OOPTeacherLogin.message,
     timestamp: currentDate
   });
 
@@ -151,12 +151,12 @@ function main(): Result {
   });
 
   result.teachers.push(
-    { id: mathTeacher.getId(), name: mathTeacher.getName(), specialization: mathTeacher.specialization, teacherId: mathTeacher.teacherId, isLoggedIn: mathTeacher.isAuthenticated() },
+    { id: OOPTeacher.getId(), name: OOPTeacher.getName(), specialization: OOPTeacher.specialization, teacherId: OOPTeacher.teacherId, isLoggedIn: OOPTeacher.isAuthenticated() },
     { id: PLTeacher.getId(), name: PLTeacher.getName(), specialization: PLTeacher.specialization, teacherId: PLTeacher.teacherId, isLoggedIn: PLTeacher.isAuthenticated() }
   );
 
   // Assign subjects to teachers
-  mathTeacher.addSubject(OOP);
+  OOPTeacher.addSubject(OOP);
   PLTeacher.addSubject(PL);
 
   // Create Students
@@ -252,14 +252,14 @@ function main(): Result {
   );
 
   // Create Assignments
-  const mathAssignment = new Assignment(
+  const OOPAssignment = new Assignment(
     1,
     "Calculus Problem Set",
     "Solve differential equations from chapter 5",
     new Date("2025-01-15"),
     100,
     OOP,
-    mathTeacher
+    OOPTeacher
   );
 
   const PLAssignment = new Assignment(
@@ -273,42 +273,42 @@ function main(): Result {
   );
 
   result.assignments.push(
-    { id: mathAssignment.getId(), title: mathAssignment.getTitle(), dueDate: mathAssignment.getDueDate().toDateString() },
+    { id: OOPAssignment.getId(), title: OOPAssignment.getTitle(), dueDate: OOPAssignment.getDueDate().toDateString() },
     { id: PLAssignment.getId(), title: PLAssignment.getTitle(), dueDate: PLAssignment.getDueDate().toDateString() }
   );
 
   // Publish assignments
-  mathAssignment.publish();
+  OOPAssignment.publish();
   PLAssignment.publish();
 
   // Add students to assignments
-  mathAssignment.addStudent(student1);
-  mathAssignment.addStudent(student2);
+  OOPAssignment.addStudent(student1);
+  OOPAssignment.addStudent(student2);
   PLAssignment.addStudent(student1);
 
   // Students submit assignments
-  student1.submitAssignment(mathAssignment);
-  mathAssignment.markSubmitted();
+  student1.submitAssignment(OOPAssignment);
+  OOPAssignment.markSubmitted();
   student1.submitAssignment(PLAssignment);
   PLAssignment.markSubmitted();
 
   // Grade assignments
-  mathAssignment.assignGrade(85, 85);
+  OOPAssignment.assignGrade(85, 85);
   PLAssignment.assignGrade(72, 90);
 
-  const mathGrade = mathAssignment.getGrade();
+  const OOPGrade = OOPAssignment.getGrade();
   const PLGrade = PLAssignment.getGrade();
   result.grades.push(
-    { id: mathGrade?.getId() || null, assignmentId: mathAssignment.getId(), studentId: student1.getId(), score: mathGrade?.getScore() || null },
+    { id: OOPGrade?.getId() || null, assignmentId: OOPAssignment.getId(), studentId: student1.getId(), score: OOPGrade?.getScore() || null },
     { id: PLGrade?.getId() || null, assignmentId: PLAssignment.getId(), studentId: student1.getId(), score: PLGrade?.getScore() || null }
   );
 
   // Create Timetable
-  const mathClass = new Timetable(1, "09:00 AM", "Monday", "Room B05", OOP);
+  const OOPClass = new Timetable(1, "09:00 AM", "Monday", "Room B05", OOP);
   const PLClass = new Timetable(2, "11:00 AM", "Monday", "Room 201", PL);
 
   result.timetables.push(
-    { id: mathClass.getId(), subjectId: mathClass.getSubject().getId(), day: mathClass.getDay(), time: mathClass.getTime(), room: mathClass.getRoom() },
+    { id: OOPClass.getId(), subjectId: OOPClass.getSubject().getId(), day: OOPClass.getDay(), time: OOPClass.getTime(), room: OOPClass.getRoom() },
     { id: PLClass.getId(), subjectId: PLClass.getSubject().getId(), day: PLClass.getDay(), time: PLClass.getTime(), room: PLClass.getRoom() }
   );
 
@@ -316,29 +316,29 @@ function main(): Result {
   if (!student1.hasOwnProperty('timetables')) {
     (student1 as any).timetables = [];
   }
-  student1.timetables.push(mathClass, PLClass);
+  student1.timetables.push(OOPClass, PLClass);
 
   // Create Study Materials
-  const mathMaterial = new StudyMaterial(
+  const OOPMaterial = new StudyMaterial(
     "MAT001",
     "Calculus Textbook Chapter 5",
     "Essential reading for differential equations",
     OOP,
-    mathTeacher,
+    OOPTeacher,
     "/materials/calculus-ch5.pdf",
     "pdf"
   );
 
   result.studyMaterials.push({
-    id: mathMaterial.getId(),
-    title: mathMaterial.getTitle(),
-    materialType: mathMaterial.getMaterialType().toUpperCase(),
-    uploadedBy: mathMaterial.getTeacher().getName(),
-    subjectId: mathMaterial.getSubject().getId(),
-    description: mathMaterial.getDescription(),
-    fileUrl: mathMaterial.getFileUrl(),
-    uploadDate: mathMaterial.getUploadDate().toISOString(),
-    summary: mathMaterial.getSummary()
+    id: OOPMaterial.getId(),
+    title: OOPMaterial.getTitle(),
+    materialType: OOPMaterial.getMaterialType().toUpperCase(),
+    uploadedBy: OOPMaterial.getTeacher().getName(),
+    subjectId: OOPMaterial.getSubject().getId(),
+    description: OOPMaterial.getDescription(),
+    fileUrl: OOPMaterial.getFileUrl(),
+    uploadDate: OOPMaterial.getUploadDate().toISOString(),
+    summary: OOPMaterial.getSummary()
   });
 
   // Create Attendance Records
@@ -368,7 +368,7 @@ function main(): Result {
   const feedback = new Feedback(
     "FB001",
     student1,
-    mathTeacher,
+    OOPTeacher,
     OOP,
     5,
     "Excellent teaching methods and clear explanations!"
@@ -432,10 +432,10 @@ function main(): Result {
 
   // Assignment status
   result.assignmentStatus = {
-    mathAssignment: {
-      id: mathAssignment.getId(),
-      overdue: mathAssignment.isOverdue(),
-      student1Submitted: mathAssignment.hasStudentSubmitted(student1)
+    OOPAssignment: {
+      id: OOPAssignment.getId(),
+      overdue: OOPAssignment.isOverdue(),
+      student1Submitted: OOPAssignment.hasStudentSubmitted(student1)
     },
     PLAssignment: {
       id: PLAssignment.getId(),
@@ -455,13 +455,13 @@ function main(): Result {
     timestamp: currentDate
   });
 
-  const mathTeacherLogout = mathTeacher.logout();
+  const OOPTeacherLogout = OOPTeacher.logout();
   result.authEvents.push({
     action: "logout",
-    userId: mathTeacher.getId(),
-    role: mathTeacher.getRole(),
-    success: mathTeacherLogout.success,
-    message: mathTeacherLogout.message,
+    userId: OOPTeacher.getId(),
+    role: OOPTeacher.getRole(),
+    success: OOPTeacherLogout.success,
+    message: OOPTeacherLogout.message,
     timestamp: currentDate
   });
 
@@ -477,7 +477,7 @@ function main(): Result {
 
   // Update login status in result
   result.students[0].isLoggedIn = student1.isAuthenticated();
-  result.teachers[0].isLoggedIn = mathTeacher.isAuthenticated();
+  result.teachers[0].isLoggedIn = OOPTeacher.isAuthenticated();
   result.admins[0].isLoggedIn = admin.isAuthenticated();
 
   return result;
