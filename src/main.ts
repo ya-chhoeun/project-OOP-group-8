@@ -320,7 +320,7 @@ function main(): Result {
 
   // Create Study Materials
   const OOPMaterial = new StudyMaterial(
-    "MAT001",
+    "OOP01",
     "Calculus Textbook Chapter 5",
     "Essential reading for differential equations",
     OOP,
@@ -343,7 +343,7 @@ function main(): Result {
 
   // Create Attendance Records
   const attendance1 = new Attendance(
-    "ATT001",
+    "OOP01",
     student1,
     OOP,
     new Date("2025-01-08"),
@@ -351,7 +351,7 @@ function main(): Result {
   );
 
   const attendance2 = new Attendance(
-    "ATT002",
+    "OOP02",
     student2,
     OOP,
     new Date("2025-01-08"),
