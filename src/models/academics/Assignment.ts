@@ -1,55 +1,59 @@
+
 // src/models/Assignment.ts
 import { Student } from '../users/Student';
 import { Grade } from './Grade';
 import { Subject } from './Subject';
 import { Teacher } from '../users/Teacher';
 
-export class Assignment {
-  id: number;
-  dueDate: Date;
-  submitted: Date | null;
-  grade: Grade | null;
-  title: string;
-  description: string;
-  maxMarks: number;
-  subject: Subject;
-  teacher: Teacher;
-  isPublished: boolean;
-  students: Student[];
 
-  constructor(
-    id: number,
-    title: string,
-    description: string,
-    dueDate: Date,
-    maxMarks: number,
-    subject: Subject,
-    teacher: Teacher,
-  ) {
+export class Assignment {
+  private id: number;
+  private title: string;
+  private description: string;
+  private dueDate: Date;
+  private students: any[];
+  private grade: any;
+  private submitted: boolean;
+  private maxMarks: number;
+  private subject: any;
+  private teacher: any;
+  private isPublished: boolean;
+
+  constructor(id: number, title: string, description: string, dueDate: Date, maxScore: number, subject: any, teacher: any) {
+
     this.id = id;
     this.title = title;
     this.description = description;
+
     this.dueDate = dueDate;
-    this.maxMarks = maxMarks;
+
+    this.maxMarks = maxScore;
     this.subject = subject;
     this.teacher = teacher;
-    this.submitted = null;
+    this.submitted = false;
     this.grade = null;
     this.isPublished = false;
     this.students = [];
+  }
+   public getSubject(): Subject {
+    return this.subject;
   }
 
   publish(): void {
     this.isPublished = true;
   }
-
+  public getTitle(): string {
+    return this.title;
+  }
   unpublish(): void {
     this.isPublished = false;
   }
   getGrade(): Grade | null {
   return this.grade;
 }
-
+public getDueDate(): Date {
+  return this.dueDate;
+}
 
   isOverdue(): boolean {
     const now = new Date();
@@ -70,6 +74,9 @@ export class Assignment {
   getSummary(): string {
     return `${this.title} (Due: ${this.dueDate.toLocaleDateString()}) - Max Marks: ${this.maxMarks}`;
   }
+  public getId(): string {
+    return this.id.toString(); // convert number id to string
+}
 
   addStudent(student: Student): void {
     if (!this.students.find(s => s.getId() === student.getId())) {
@@ -78,7 +85,7 @@ export class Assignment {
   }
 
   markSubmitted(): void {
-    this.submitted = new Date();
+    this.submitted = true;
   }
 
   assignGrade(grade: number, percentage: number, comment: string = ""): void {
@@ -95,3 +102,4 @@ export class Assignment {
     return this.students.some(s => s.getId() === student.getId()) && this.submitted !== null;
   }
 }
+

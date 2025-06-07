@@ -42,36 +42,38 @@ export class Teacher extends User {
   }
 
   public addAssignment(assignment: Assignment): void {
-    if (!this.subjects.find((s) => s.getId() === assignment.subject.getId())) {
+    if (!this.subjects.find((s) => s.getId() === assignment.getSubject().getId())) {
       throw new Error("Not authorized to add assignment for this subject.");
     }
-    if (!this.assignments.find((a) => a.id === assignment.id)) {
+    if (!this.assignments.find((a) => a.getId() === assignment.getId())) {
       this.assignments.push(assignment);
-      console.log(`Assignment added: ${assignment.title}`);
+      console.log(`Assignment added: ${assignment.getTitle()}`);
     } else {
-      console.log(`Assignment ${assignment.title} is already added.`);
+      console.log(`Assignment ${assignment.getTitle()} is already added.`);
     }
   }
 
 
   public viewStudentGrade(student: Student, assignment: Assignment): void {
 
-    if (!this.subjects.find((s) => s.getId() === assignment.subject.getId())) {
+    // Use assignment.getSubject() to access the subject
+    if (!this.subjects.find((s) => s.getId() === assignment.getSubject().getId())) {
       throw new Error("Not authorized to view grades for this assignment's subject.");
     }
     
-    if (!assignment.students.find((s) => s.getId() === student.getId())) {
+    // Check if the student is assigned to this assignment
+    if (!assignment['students'] || !assignment['students'].find((s: Student) => s.getId() === student.getId())) {
       throw new Error(`${student.getName()} is not assigned to this assignment.`);
     }
     const grade = assignment.getGrade();
     if (grade !== null && grade !== undefined) {
-      console.log(`${student.getName()} scored ${grade.getScore()} on ${assignment.title}`);
+      console.log(`${student.getName()} scored ${grade.getScore()} on ${assignment.getTitle()}`);
       // Uncomment the following lines if 'comment' exists on Grade type
       // if (grade.comment) {
       //   console.log(`Comment: ${grade.comment}`);
       // }
     } else {
-      console.log(`${student.getName()} has no grade yet for ${assignment.title}`);
+      console.log(`${student.getName()} has no grade yet for ${assignment.getTitle()}`);
     }
   }
 
