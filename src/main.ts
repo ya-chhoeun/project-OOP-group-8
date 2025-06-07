@@ -135,8 +135,6 @@ function main(): void {
     const attendanceRecords = Attendance.getAttendanceForStudent(student1);
     logWithTimestamp(`Attendance for ${student1.getName()}: ${attendanceRecords[0].getStatus()}`);
 
-    
-
     // === Exam and Result Management ===
     const exam = new Exam(new Date("2025-06-20"), 0, "Room A101", 100);
     exam.addStudent(student1);
